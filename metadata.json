@@ -1,0 +1,6 @@
+{
+  "name": "O3 Energy Sales Automation",
+  "description": "Sistema completo de automatización de ventas para O3 Energy México con monitor de chats, pre-cotización de paneles solares mediante IA y dashboard interactivo en tiempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

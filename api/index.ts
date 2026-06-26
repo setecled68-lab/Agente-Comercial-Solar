@@ -8,7 +8,7 @@
  */
 
 import express from 'express';
-import * as admin from 'firebase-admin';
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { GoogleGenAI } from '@google/genai';
 import nodemailer from 'nodemailer';
@@ -27,7 +27,7 @@ const inMemoryLeads: Record<string, any> = {};
 
 function initFirebase() {
   // Avoid re-initializing on hot reloads (Vercel reuses instances between requests)
-  if (admin.apps.length > 0) {
+  if (getApps().length > 0) {
     const dbId = firebaseConfig.firestoreDatabaseId;
     db = dbId && dbId !== '(default)' ? getFirestore(dbId) : getFirestore();
     return;
@@ -37,13 +37,13 @@ function initFirebase() {
     const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
     if (serviceAccountJson) {
       const serviceAccount = JSON.parse(serviceAccountJson);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+      initializeApp({
+        credential: cert(serviceAccount),
         projectId: firebaseConfig.projectId,
       });
       console.log('Firebase Admin SDK initialized from FIREBASE_SERVICE_ACCOUNT_JSON env var');
     } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-      admin.initializeApp({ projectId: firebaseConfig.projectId });
+      initializeApp({ projectId: firebaseConfig.projectId });
       console.log('Firebase Admin SDK initialized using GOOGLE_APPLICATION_CREDENTIALS');
     } else {
       console.warn('No Firebase Admin credentials found. Falling back to in-memory mode.');

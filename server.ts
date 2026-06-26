@@ -6,7 +6,7 @@
 import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
-import * as admin from 'firebase-admin';
+import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
@@ -37,13 +37,13 @@ try {
 
   if (hasServiceAccount || hasEnvCredentials) {
     if (hasServiceAccount) {
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccountPath),
+      initializeApp({
+        credential: cert(serviceAccountPath),
         projectId: firebaseConfig.projectId,
       });
       console.log('Firebase Admin SDK initialized using firebase-service-account.json');
     } else {
-      admin.initializeApp({
+      initializeApp({
         projectId: firebaseConfig.projectId,
       });
       console.log('Firebase Admin SDK initialized using GOOGLE_APPLICATION_CREDENTIALS');

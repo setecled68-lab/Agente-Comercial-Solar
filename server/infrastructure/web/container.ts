@@ -16,6 +16,8 @@ import { ReceiveMessageUseCase } from '../../application/usecases/ReceiveMessage
 import { SOFIA_DEFINITION } from '../../agents/definitions/Sofia.js';
 import { AppConfig } from '../../shared/config/AppConfig.js';
 import { logger } from '../../shared/logger/ConsoleLogger.js';
+import { getApps } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
 // ─── Infrastructure ────────────────────────────────────────────────────────
 const quoteEngine = new SolarQuoteEngine();
@@ -56,9 +58,6 @@ async function sendWhatsAppMessage(phone: string, text: string): Promise<boolean
 // ─── Repository selection (lazy — evaluated per-request) ─────────────────
 function getRepos() {
   try {
-    // Try to get the already-initialized Firestore instance
-    const { getFirestore } = require('firebase-admin/firestore');
-    const { getApps } = require('firebase-admin/app');
     if (getApps().length > 0) {
       const db = getFirestore();
       logger.info('[DI] Using Firestore repositories (multi-tenant)');

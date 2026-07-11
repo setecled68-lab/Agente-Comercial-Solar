@@ -13,8 +13,8 @@ import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import nodemailer from 'nodemailer';
 // ─── v2 Architecture (Clean Architecture / Tool Calling) ───────────────────
-import { v2Router } from '../server/infrastructure/web/v2Router';
-import { initRepositories } from '../server/infrastructure/web/container';
+import { v2Router } from '../server/infrastructure/web/v2Router.js';
+import { initRepositories } from '../server/infrastructure/web/container.js';
 
 // Firebase client config — these are public values (same as firebase-applet-config.json)
 // Hardcoded here to avoid runtime file-read issues in Vercel serverless environment

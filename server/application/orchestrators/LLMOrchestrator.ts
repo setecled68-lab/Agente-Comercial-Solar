@@ -1,13 +1,13 @@
-import { ILLMProvider, LLMMessage, ToolDefinition } from '../../interfaces/ILLMProvider';
-import { IQuoteEngine } from '../../interfaces/IQuoteEngine';
-import { ILeadRepository } from '../../domain/repositories/ILeadRepository';
-import { IConversationRepository } from '../../domain/repositories/IConversationRepository';
-import { Conversation } from '../../domain/entities/Conversation';
-import { Lead } from '../../domain/entities/Lead';
-import { LeadScore, Money } from '../../domain/value_objects/index';
-import { AgentDefinition } from '../../interfaces/IAgentFactory';
-import { logger } from '../../shared/logger/ConsoleLogger';
-import { AppConfig } from '../../shared/config/AppConfig';
+import { ILLMProvider, LLMMessage, ToolDefinition } from '../../interfaces/ILLMProvider.js';
+import { IQuoteEngine } from '../../interfaces/IQuoteEngine.js';
+import { ILeadRepository } from '../../domain/repositories/ILeadRepository.js';
+import { IConversationRepository } from '../../domain/repositories/IConversationRepository.js';
+import { Conversation } from '../../domain/entities/Conversation.js';
+import { Lead } from '../../domain/entities/Lead.js';
+import { LeadScore, Money } from '../../domain/value_objects/index.js';
+import { AgentDefinition } from '../../interfaces/IAgentFactory.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
+import { AppConfig } from '../../shared/config/AppConfig.js';
 import nodemailer from 'nodemailer';
 
 const MAX_TOOL_ROUNDS = 5; // Prevent infinite tool loops

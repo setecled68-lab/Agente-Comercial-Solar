@@ -1,4 +1,4 @@
-import { Conversation } from '../entities/Conversation';
+import { Conversation } from '../entities/Conversation.js';
 
 export interface IConversationRepository {
   findByPhone(tenantId: string, phone: string): Promise<Conversation>;

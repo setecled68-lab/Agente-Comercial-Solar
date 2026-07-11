@@ -3,19 +3,19 @@
  * If Firebase credentials are present → uses Firestore repos.
  * Otherwise → falls back to InMemory repos.
  */
-import { GroqProvider } from '../llm/GroqProvider';
-import { SolarQuoteEngine } from '../engines/SolarQuoteEngine';
+import { GroqProvider } from '../llm/GroqProvider.js';
+import { SolarQuoteEngine } from '../engines/SolarQuoteEngine.js';
 import {
   FirestoreConversationRepository,
   FirestoreLeadRepository,
   InMemoryConversationRepository,
   InMemoryLeadRepository,
 } from '../persistence/Repositories';
-import { LLMOrchestrator } from '../../application/orchestrators/LLMOrchestrator';
-import { ReceiveMessageUseCase } from '../../application/usecases/ReceiveMessageUseCase';
-import { SOFIA_DEFINITION } from '../../agents/definitions/Sofia';
-import { AppConfig } from '../../shared/config/AppConfig';
-import { logger } from '../../shared/logger/ConsoleLogger';
+import { LLMOrchestrator } from '../../application/orchestrators/LLMOrchestrator.js';
+import { ReceiveMessageUseCase } from '../../application/usecases/ReceiveMessageUseCase.js';
+import { SOFIA_DEFINITION } from '../../agents/definitions/Sofia.js';
+import { AppConfig } from '../../shared/config/AppConfig.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
 
 // ─── Infrastructure ────────────────────────────────────────────────────────
 const quoteEngine = new SolarQuoteEngine();

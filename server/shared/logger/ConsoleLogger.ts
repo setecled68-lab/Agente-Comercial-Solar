@@ -1,4 +1,4 @@
-import { ILogger } from './ILogger';
+import { ILogger } from './ILogger.js';
 
 export class ConsoleLogger implements ILogger {
   private formatMeta(meta?: Record<string, unknown>): string {

@@ -1,4 +1,4 @@
-import { Lead } from '../entities/Lead';
+import { Lead } from '../entities/Lead.js';
 
 export interface ILeadRepository {
   save(lead: Lead): Promise<void>;

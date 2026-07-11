@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { AgentDefinition } from '../../interfaces/IAgentFactory';
-import { ToolDefinition } from '../../interfaces/ILLMProvider';
+import { AgentDefinition } from '../../interfaces/IAgentFactory.js';
+import { ToolDefinition } from '../../interfaces/ILLMProvider.js';
 
 // Load knowledge from Markdown files at startup (not per-request)
 function loadKnowledge(filename: string): string {

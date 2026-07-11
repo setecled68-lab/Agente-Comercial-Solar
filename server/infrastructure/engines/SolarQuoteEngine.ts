@@ -1,4 +1,4 @@
-import { IQuoteEngine, QuoteResult } from '../../interfaces/IQuoteEngine';
+import { IQuoteEngine, QuoteResult } from '../../interfaces/IQuoteEngine.js';
 
 // ─── Pricing Table (edit here — never in the LLM prompt) ───────────────────
 // Cost per watt-peak installed (MXN), including panels + inverter + labor + permits

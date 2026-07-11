@@ -1,8 +1,8 @@
-import { IConversationRepository } from '../../domain/repositories/IConversationRepository';
-import { LLMOrchestrator } from '../orchestrators/LLMOrchestrator';
-import { AgentDefinition } from '../../interfaces/IAgentFactory';
-import { logger } from '../../shared/logger/ConsoleLogger';
-import { AppConfig } from '../../shared/config/AppConfig';
+import { IConversationRepository } from '../../domain/repositories/IConversationRepository.js';
+import { LLMOrchestrator } from '../orchestrators/LLMOrchestrator.js';
+import { AgentDefinition } from '../../interfaces/IAgentFactory.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
+import { AppConfig } from '../../shared/config/AppConfig.js';
 
 interface IncomingMessage {
   phone: string;

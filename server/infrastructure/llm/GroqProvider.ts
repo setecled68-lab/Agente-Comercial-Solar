@@ -1,8 +1,8 @@
 import {
   ILLMProvider, LLMMessage, LLMResponse, ToolDefinition,
 } from '../../interfaces/ILLMProvider';
-import { AppConfig } from '../../shared/config/AppConfig';
-import { logger } from '../../shared/logger/ConsoleLogger';
+import { AppConfig } from '../../shared/config/AppConfig.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 800;

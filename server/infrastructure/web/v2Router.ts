@@ -5,9 +5,9 @@
  * The old /api/whatsapp-webhook remains for backward compatibility.
  */
 import { Router, Request, Response } from 'express';
-import { AppConfig } from '../../shared/config/AppConfig';
-import { logger } from '../../shared/logger/ConsoleLogger';
-import { buildReceiveMessageUseCase, convRepo, leadRepo } from './container';
+import { AppConfig } from '../../shared/config/AppConfig.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
+import { buildReceiveMessageUseCase, convRepo, leadRepo } from './container.js';
 
 const v2Router = Router();
 

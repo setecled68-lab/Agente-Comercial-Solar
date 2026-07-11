@@ -1,8 +1,8 @@
-import { IConversationRepository } from '../../domain/repositories/IConversationRepository';
-import { ILeadRepository } from '../../domain/repositories/ILeadRepository';
-import { Conversation, ConversationState, Message } from '../../domain/entities/Conversation';
-import { Lead } from '../../domain/entities/Lead';
-import { logger } from '../../shared/logger/ConsoleLogger';
+import { IConversationRepository } from '../../domain/repositories/IConversationRepository.js';
+import { ILeadRepository } from '../../domain/repositories/ILeadRepository.js';
+import { Conversation, ConversationState, Message } from '../../domain/entities/Conversation.js';
+import { Lead } from '../../domain/entities/Lead.js';
+import { logger } from '../../shared/logger/ConsoleLogger.js';
 
 // ─── In-Memory Fallback (replaces old inMemoryChats/inMemoryLeads) ────────
 

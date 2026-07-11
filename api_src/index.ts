@@ -90,16 +90,16 @@ async function getChatDoc(phone: string): Promise<any> {
   if (isInMemory) {
     if (!inMemoryChats[phone]) {
       inMemoryChats[phone] = {
-        id: phone, phone, nombre: 'Cliente', bot_disabled: false,
-        messages: [], last_message_at: new Date().toISOString(),
+        id: phone, phone, nombre: 'Cliente', botDisabled: false,
+        messages: [], lastMessageAt: new Date().toISOString(),
       };
     }
     return inMemoryChats[phone];
   }
-  const docRef = db.collection('chats').doc(phone);
+  const docRef = db.collection('tenants/o3energy_mexico/chats').doc(phone);
   const doc = await docRef.get();
   if (!doc.exists) {
-    const newChat = { phone, nombre: 'Cliente', bot_disabled: false, messages: [], last_message_at: new Date().toISOString() };
+    const newChat = { phone, nombre: 'Cliente', botDisabled: false, messages: [], lastMessageAt: new Date().toISOString() };
     await docRef.set(newChat);
     return { id: phone, ...newChat };
   }
@@ -108,15 +108,15 @@ async function getChatDoc(phone: string): Promise<any> {
 
 async function updateChatDoc(phone: string, data: any): Promise<void> {
   if (isInMemory) { inMemoryChats[phone] = { ...inMemoryChats[phone], ...data }; return; }
-  await db.collection('chats').doc(phone).set(data, { merge: true });
+  await db.collection('tenants/o3energy_mexico/chats').doc(phone).set(data, { merge: true });
 }
 
 async function createQualifiedLead(lead: any): Promise<void> {
   const leadId = lead.id || `lead_${Date.now()}`;
   if (isInMemory) {
-    inMemoryLeads[leadId] = { ...lead, id: leadId, status: 'pending_review', created_at: new Date().toISOString() };
+    inMemoryLeads[leadId] = { ...lead, id: leadId, status: 'pending_review', createdAt: new Date().toISOString() };
   } else {
-    await db.collection('qualified_leads').doc(leadId).set({ ...lead, status: 'pending_review', created_at: new Date().toISOString() });
+    await db.collection('tenants/o3energy_mexico/qualified_leads').doc(leadId).set({ ...lead, status: 'pending_review', createdAt: new Date().toISOString() });
   }
 }
 
@@ -128,7 +128,7 @@ async function sendSalesEmailNotification(lead: any, phone: string): Promise<boo
   const smtpServer = process.env.SMTP_SERVER || 'smtp.gmail.com';
   const smtpPort = parseInt(process.env.SMTP_PORT || '587');
 
-  const subject = `🔥 Nuevo Lead Calificado: ${lead.nombre || 'Cliente'} (${lead.monto_recibo || 'Sin monto'})`;
+  const subject = `🔥 Nuevo Lead Calificado: ${lead.nombre || 'Cliente'} (${lead.montoRecibo || 'Sin monto'})`;
   const bodyHtml = `
     <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; margin: 0 auto;">
       <div style="background-color: #ea580c; color: white; padding: 24px; text-align: center;">
@@ -139,9 +139,9 @@ async function sendSalesEmailNotification(lead: any, phone: string): Promise<boo
         <table style="width: 100%; border-collapse: collapse;">
           <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Nombre:</td><td style="padding: 10px 0;">${lead.nombre}</td></tr>
           <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">WhatsApp:</td><td style="padding: 10px 0; font-family: monospace;">+${phone}</td></tr>
-          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Gasto CFE:</td><td style="padding: 10px 0; color: #ea580c; font-weight: bold;">${lead.monto_recibo}</td></tr>
-          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Sistema:</td><td style="padding: 10px 0;">${lead.sistema_estimado}</td></tr>
-          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Costo:</td><td style="padding: 10px 0; color: #ea580c; font-weight: bold;">${lead.costo_estimado}</td></tr>
+          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Gasto CFE:</td><td style="padding: 10px 0; color: #ea580c; font-weight: bold;">${lead.montoRecibo}</td></tr>
+          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Sistema:</td><td style="padding: 10px 0;">${lead.sistemaEstimado}</td></tr>
+          <tr><td style="padding: 10px 0; font-weight: bold; color: #64748b;">Costo:</td><td style="padding: 10px 0; color: #ea580c; font-weight: bold;">${lead.costoEstimado}</td></tr>
         </table>
         <div style="text-align: center; margin-top: 24px;">
           <a href="https://wa.me/${phone}" style="background-color: #ea580c; color: white; padding: 12px 24px; border-radius: 12px; text-decoration: none; font-weight: bold;">💬 Atender en WhatsApp</a>
@@ -244,7 +244,7 @@ Sigue rigurosamente estas pautas en español de México, manteniendo un tono pro
 
 3. **REGLA DE SALIDA (Generación del lead calificado)**:
    - En el momento en que hayas obtenido las respuestas clave (nombre o "Cliente Interesado", monto de recibo y la confirmación de ser dueño/interesado en pre-cotizar) y le hayas presentado la pre-cotización, debes adjuntar OBLIGATORIAMENTE al final absoluto de tu mensaje el siguiente bloque JSON en este formato de tag:
-     [QUALIFIED_LEAD: {"nombre": "Nombre del cliente", "monto_recibo": "$X,XXX MXN", "sistema_estimado": "X paneles", "costo_estimado": "$XX,XXX MXN"}]
+     [QUALIFIED_LEAD: {"nombre": "Nombre del cliente", "montoRecibo": "$X,XXX MXN", "sistemaEstimado": "X paneles", "costoEstimado": "$XX,XXX MXN"}]
    - No muestres ni menciones este bloque JSON explícitamente en el diálogo. Solo colócalo al final exacto de tu respuesta.
 
 Mantén tus respuestas relativamente cortas, fáciles de leer en WhatsApp, usando viñetas donde sea conveniente y usando saltos de línea claros.
@@ -283,11 +283,11 @@ app.get('/api/chats', async (_req, res) => {
       return {
         id: doc.id,
         ...data,
-        last_message_at: data.lastMessageAt || data.last_message_at,
-        bot_disabled: data.botDisabled || data.bot_disabled,
-        monto_recibo: data.montoRecibo || data.monto_recibo,
-        sistema_estimado: data.sistemaEstimado || data.sistema_estimado,
-        costo_estimado: data.costoEstimado || data.costo_estimado
+        lastMessageAt: data.lastMessageAt || data.lastMessageAt,
+        botDisabled: data.botDisabled || data.botDisabled,
+        montoRecibo: data.montoRecibo || data.montoRecibo,
+        sistemaEstimado: data.sistemaEstimado || data.sistemaEstimado,
+        costoEstimado: data.costoEstimado || data.costoEstimado
       };
     }));
   } catch (err: any) { return res.status(500).json({ error: err.message }); }
@@ -296,10 +296,10 @@ app.get('/api/chats', async (_req, res) => {
 // Toggle bot
 app.post('/api/chats/:phone/toggle-bot', async (req, res) => {
   const { phone } = req.params;
-  const { bot_disabled } = req.body;
+  const { botDisabled } = req.body;
   try {
     const chat = await getChatDoc(phone);
-    chat.bot_disabled = bot_disabled;
+    chat.botDisabled = botDisabled;
     await updateChatDoc(phone, chat);
     return res.json({ success: true, chat });
   } catch (err: any) { return res.status(500).json({ error: err.message }); }
@@ -313,8 +313,8 @@ app.post('/api/chats/:phone/message', async (req, res) => {
   try {
     const chat = await getChatDoc(phone);
     chat.messages.push({ sender: 'agent' as const, text, timestamp: new Date().toISOString() });
-    chat.last_message_at = new Date().toISOString();
-    chat.bot_disabled = true;
+    chat.lastMessageAt = new Date().toISOString();
+    chat.botDisabled = true;
     await updateChatDoc(phone, chat);
     await sendWhatsAppMessage(phone, text);
     return res.json({ success: true, chat });
@@ -332,11 +332,11 @@ app.get('/api/leads', async (_req, res) => {
       return {
         id: doc.id,
         ...data,
-        created_at: data.createdAt || data.created_at,
-        monto_recibo: data.montoRecibo || data.monto_recibo,
-        sistema_estimado: data.sistemaEstimado || data.sistema_estimado,
-        costo_estimado: data.costoEstimado || data.costo_estimado,
-        private_notes: data.privateNotes || data.private_notes
+        createdAt: data.createdAt || data.createdAt,
+        montoRecibo: data.montoRecibo || data.montoRecibo,
+        sistemaEstimado: data.sistemaEstimado || data.sistemaEstimado,
+        costoEstimado: data.costoEstimado || data.costoEstimado,
+        privateNotes: data.privateNotes || data.privateNotes
       };
     }));
   } catch (err: any) { return res.status(500).json({ error: err.message }); }
@@ -350,12 +350,12 @@ app.post('/api/copilot/query', async (req, res) => {
     let leadsList: any[] = [], chatsList: any[] = [];
     if (isInMemory) {
       leadsList = Object.values(inMemoryLeads);
-      chatsList = Object.values(inMemoryChats).map((c: any) => ({ id: c.id, phone: c.phone, nombre: c.nombre, bot_disabled: c.bot_disabled, monto_recibo: c.monto_recibo, sistema_estimado: c.sistema_estimado, costo_estimado: c.costo_estimado, message_count: c.messages?.length || 0, last_message_at: c.last_message_at }));
+      chatsList = Object.values(inMemoryChats).map((c: any) => ({ id: c.id, phone: c.phone, nombre: c.nombre, botDisabled: c.botDisabled, montoRecibo: c.montoRecibo, sistemaEstimado: c.sistemaEstimado, costoEstimado: c.costoEstimado, message_count: c.messages?.length || 0, lastMessageAt: c.lastMessageAt }));
     } else {
-      const ls = await db.collection('qualified_leads').orderBy('created_at', 'desc').get();
+      const ls = await db.collection('tenants/o3energy_mexico/qualified_leads').orderBy('createdAt', 'desc').get();
       leadsList = ls.docs.map((d: any) => ({ id: d.id, ...d.data() }));
-      const cs = await db.collection('chats').orderBy('last_message_at', 'desc').get();
-      chatsList = cs.docs.map((d: any) => { const data = d.data(); return { id: d.id, phone: data.phone, nombre: data.nombre, bot_disabled: data.bot_disabled, monto_recibo: data.monto_recibo, sistema_estimado: data.sistema_estimado, costo_estimado: data.costo_estimado, message_count: data.messages?.length || 0, last_message_at: data.last_message_at }; });
+      const cs = await db.collection('tenants/o3energy_mexico/chats').orderBy('lastMessageAt', 'desc').get();
+      chatsList = cs.docs.map((d: any) => { const data = d.data(); return { id: d.id, phone: data.phone, nombre: data.nombre, botDisabled: data.botDisabled, montoRecibo: data.montoRecibo, sistemaEstimado: data.sistemaEstimado, costoEstimado: data.costoEstimado, message_count: data.messages?.length || 0, lastMessageAt: data.lastMessageAt }; });
     }
     const databaseContext = { qualified_leads: leadsList, chats_metadata: chatsList, current_time: new Date().toISOString(), metadata: { total_leads: leadsList.length, total_chats: chatsList.length, pending_leads: leadsList.filter((l: any) => l.status === 'pending_review').length, contacted_leads: leadsList.filter((l: any) => l.status === 'contacted').length } };
     const systemInstruction = `Eres el Copiloto Inteligente de Base de Datos de Ventas de "O3 Energy México". Responde con precisión analítica usando ÚNICAMENTE los datos:\n${JSON.stringify(databaseContext, null, 2)}\nUsa formato Markdown con tablas y negritas. Montos en pesos mexicanos. Si está vacío, sugiere usar el Simulador de Webhook.`;
@@ -381,7 +381,7 @@ app.post('/api/leads/:id/contacted', async (req, res) => {
   const { id } = req.params;
   try {
     if (isInMemory) { if (inMemoryLeads[id]) inMemoryLeads[id].status = 'contacted'; return res.json({ success: true }); }
-    await db.collection('qualified_leads').doc(id).update({ status: 'contacted' });
+    await db.collection('tenants/o3energy_mexico/qualified_leads').doc(id).update({ status: 'contacted' });
     return res.json({ success: true });
   } catch (err: any) { return res.status(500).json({ error: err.message }); }
 });
@@ -389,11 +389,11 @@ app.post('/api/leads/:id/contacted', async (req, res) => {
 // Save private notes
 app.post('/api/leads/:id/notes', async (req, res) => {
   const { id } = req.params;
-  const { private_notes } = req.body;
+  const { privateNotes } = req.body;
   try {
-    if (isInMemory) { if (inMemoryLeads[id]) inMemoryLeads[id].private_notes = private_notes; return res.json({ success: true, private_notes }); }
-    await db.collection('qualified_leads').doc(id).set({ private_notes }, { merge: true });
-    return res.json({ success: true, private_notes });
+    if (isInMemory) { if (inMemoryLeads[id]) inMemoryLeads[id].privateNotes = privateNotes; return res.json({ success: true, privateNotes }); }
+    await db.collection('tenants/o3energy_mexico/qualified_leads').doc(id).set({ privateNotes }, { merge: true });
+    return res.json({ success: true, privateNotes });
   } catch (err: any) { return res.status(500).json({ error: err.message }); }
 });
 
@@ -404,9 +404,9 @@ app.post('/api/reset-demo', async (_req, res) => {
       Object.keys(inMemoryChats).forEach(k => delete inMemoryChats[k]);
       Object.keys(inMemoryLeads).forEach(k => delete inMemoryLeads[k]);
     } else {
-      const chatsSnap = await db.collection('chats').get();
+      const chatsSnap = await db.collection('tenants/o3energy_mexico/chats').get();
       for (const doc of chatsSnap.docs) await doc.ref.delete();
-      const leadsSnap = await db.collection('qualified_leads').get();
+      const leadsSnap = await db.collection('tenants/o3energy_mexico/qualified_leads').get();
       for (const doc of leadsSnap.docs) await doc.ref.delete();
     }
     return res.json({ success: true, message: 'Datos reseteados.' });

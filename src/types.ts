@@ -13,11 +13,11 @@ export interface Chat {
   id: string; // Phone number as ID
   phone: string;
   nombre?: string;
-  bot_disabled: boolean;
-  monto_recibo?: string;
-  sistema_estimado?: string;
-  costo_estimado?: string;
-  last_message_at: string;
+  botDisabled: boolean;
+  montoRecibo?: string;
+  sistemaEstimado?: string;
+  costoEstimado?: string;
+  lastMessageAt: string;
   messages: Message[];
 }
 
@@ -25,10 +25,10 @@ export interface QualifiedLead {
   id: string;
   nombre: string;
   phone: string;
-  monto_recibo: string;
-  sistema_estimado: string;
-  costo_estimado: string;
+  montoRecibo?: string;
+  sistemaEstimado?: string;
+  costoEstimado?: string;
   status: 'pending_review' | 'contacted';
-  created_at: string;
-  private_notes?: string;
+  createdAt: string;
+  privateNotes?: string;
 }

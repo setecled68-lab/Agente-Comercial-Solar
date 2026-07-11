@@ -128,7 +128,7 @@ export default function App() {
     if ('Notification' in window && Notification.permission === 'granted') {
       const title = `🔥 Lead Calificado: ${lead.nombre || 'Cliente Nuevo'}`;
       const options = {
-        body: `Recibo: ${lead.monto_recibo || 'Sin monto'} | Sistema: ${lead.sistema_estimado || 'Sin sistema'}`,
+        body: `Recibo: ${lead.montoRecibo || 'Sin monto'} | Sistema: ${lead.sistemaEstimado || 'Sin sistema'}`,
         icon: '/favicon.ico',
         tag: lead.id, // prevent duplicate alerts
         requireInteraction: true // Keep open until action
@@ -156,7 +156,7 @@ export default function App() {
   const systemData = React.useMemo(() => {
     const counts: Record<string, number> = {};
     leads.forEach(lead => {
-      let sys = lead.sistema_estimado || 'No especificado';
+      let sys = lead.sistemaEstimado || 'No especificado';
       if (sys.length > 30) {
         const match = sys.match(/\d+\s+paneles/i);
         if (match) {
@@ -248,7 +248,7 @@ export default function App() {
 
     try {
       // 1. Subscribe to Chats
-      const chatsQuery = query(collection(db, 'chats'), orderBy('last_message_at', 'desc'));
+      const chatsQuery = query(collection(db, 'tenants/o3energy_mexico/chats'), orderBy('lastMessageAt', 'desc'));
       unsubscribeChats = onSnapshot(chatsQuery, (snapshot) => {
         const chatsList: Chat[] = [];
         snapshot.forEach((doc) => {
@@ -264,7 +264,7 @@ export default function App() {
       });
 
       // 2. Subscribe to Leads
-      const leadsQuery = query(collection(db, 'qualified_leads'), orderBy('created_at', 'desc'));
+      const leadsQuery = query(collection(db, 'tenants/o3energy_mexico/qualified_leads'), orderBy('createdAt', 'desc'));
       unsubscribeLeads = onSnapshot(leadsQuery, (snapshot) => {
         const leadsList: QualifiedLead[] = [];
         snapshot.forEach((doc) => {
@@ -529,7 +529,7 @@ export default function App() {
       const response = await fetch(`/api/chats/${phone}/toggle-bot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bot_disabled: !currentStatus })
+        body: JSON.stringify({ botDisabled: !currentStatus })
       });
       if (response.ok) {
         showToast(!currentStatus ? '🤖 Bot de Inteligencia Artificial PAUSADO' : '🤖 Bot de Inteligencia Artificial REACTIVADO');
@@ -662,7 +662,7 @@ export default function App() {
       const response = await fetch(`/api/leads/${leadId}/notes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ private_notes: notes })
+        body: JSON.stringify({ privateNotes: notes })
       });
       if (response.ok) {
         showToast('📝 Nota privada guardada con éxito');
@@ -699,7 +699,7 @@ export default function App() {
     if (!searchLower) return true;
     const nombreMatch = (lead.nombre || '').toLowerCase().includes(searchLower);
     const phoneMatch = (lead.phone || '').includes(searchLower);
-    const sistemaMatch = (lead.sistema_estimado || '').toLowerCase().includes(searchLower);
+    const sistemaMatch = (lead.sistemaEstimado || '').toLowerCase().includes(searchLower);
     return nombreMatch || phoneMatch || sistemaMatch;
   });
 
@@ -746,12 +746,12 @@ export default function App() {
       lead.id,
       lead.nombre || '',
       lead.phone || '',
-      lead.monto_recibo || '',
-      lead.sistema_estimado || '',
-      lead.costo_estimado || '',
+      lead.montoRecibo || '',
+      lead.sistemaEstimado || '',
+      lead.costoEstimado || '',
       lead.status === 'pending_review' ? 'Pendiente de Contacto' : 'Contactado',
-      lead.created_at ? new Date(lead.created_at).toLocaleString('es-MX') : '',
-      lead.private_notes || ''
+      lead.createdAt ? new Date(lead.createdAt).toLocaleString('es-MX') : '',
+      lead.privateNotes || ''
     ]);
 
     // Construct CSV Content with BOM for Spanish characters encoding in Excel
@@ -787,8 +787,8 @@ export default function App() {
   const pendingLeads = leads.filter(l => l.status === 'pending_review');
   const contactedLeads = leads.filter(l => l.status === 'contacted');
 
-  const totalPendingValue = pendingLeads.reduce((sum, lead) => sum + parseCost(lead.costo_estimado), 0);
-  const totalContactedValue = contactedLeads.reduce((sum, lead) => sum + parseCost(lead.costo_estimado), 0);
+  const totalPendingValue = pendingLeads.reduce((sum, lead) => sum + parseCost(lead.costoEstimado), 0);
+  const totalContactedValue = contactedLeads.reduce((sum, lead) => sum + parseCost(lead.costoEstimado), 0);
   const totalPipelineValue = totalPendingValue + totalContactedValue;
 
   const conversionRate = totalPipelineValue > 0 ? Math.round((totalContactedValue / totalPipelineValue) * 100) : 0;
@@ -1134,7 +1134,7 @@ export default function App() {
                   ) : (
                     filteredChats.map((chat) => {
                       const lastMsg = chat.messages?.[chat.messages.length - 1];
-                      const isUnqualified = !chat.monto_recibo;
+                      const isUnqualified = !chat.montoRecibo;
                       return (
                         <button
                           key={chat.phone}
@@ -1156,7 +1156,7 @@ export default function App() {
                               {chat.nombre || 'Cliente WhatsApp'}
                             </span>
                             <span className="text-[10px] text-slate-500 font-mono">
-                              {chat.last_message_at ? new Date(chat.last_message_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
+                              {chat.lastMessageAt ? new Date(chat.lastMessageAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
                             </span>
                           </div>
                           
@@ -1174,7 +1174,7 @@ export default function App() {
                           )}
 
                           <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
-                            {chat.bot_disabled ? (
+                            {chat.botDisabled ? (
                               <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-550 border border-amber-500/20">
                                 <Pause className="h-2 w-2 mr-0.5 fill-current" /> IA Pausada
                               </span>
@@ -1186,7 +1186,7 @@ export default function App() {
 
                             {!isUnqualified && (
                               <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-orange-500/10 text-orange-600 border border-orange-500/20">
-                                🔥 Calificado ({chat.monto_recibo})
+                                🔥 Calificado ({chat.montoRecibo})
                               </span>
                             )}
                           </div>
@@ -1216,7 +1216,7 @@ export default function App() {
                             <h3 className={`font-bold text-sm leading-tight transition-colors duration-200 ${
                               isDarkMode ? 'text-slate-100' : 'text-slate-900'
                             }`}>{selectedChat.nombre || 'Cliente WhatsApp'}</h3>
-                            {selectedChat.monto_recibo && (
+                            {selectedChat.montoRecibo && (
                               <span className="bg-orange-500/10 text-orange-600 border border-orange-500/20 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center">
                                 <Sparkles className="h-2.5 w-2.5 mr-0.5 text-orange-500 fill-current" /> Lead Calificado
                               </span>
@@ -1230,20 +1230,20 @@ export default function App() {
                       <div className="flex items-center space-x-3">
                         <div className="text-right mr-1 hidden md:block">
                           <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wide">Status del Asistente</p>
-                          <p className={`text-xs font-bold ${selectedChat.bot_disabled ? 'text-amber-500' : 'text-emerald-500'}`}>
-                            {selectedChat.bot_disabled ? 'PAUSADO (Manual)' : 'ACTIVO (Conversando)'}
+                          <p className={`text-xs font-bold ${selectedChat.botDisabled ? 'text-amber-500' : 'text-emerald-500'}`}>
+                            {selectedChat.botDisabled ? 'PAUSADO (Manual)' : 'ACTIVO (Conversando)'}
                           </p>
                         </div>
                         
                         <button
-                          onClick={() => handleToggleBot(selectedChat.phone, selectedChat.bot_disabled)}
+                          onClick={() => handleToggleBot(selectedChat.phone, selectedChat.botDisabled)}
                           className={`flex items-center space-x-2 py-2 px-4 rounded-xl text-xs font-semibold shadow-sm transition-all duration-200 cursor-pointer ${
-                            selectedChat.bot_disabled
+                            selectedChat.botDisabled
                               ? 'bg-orange-600 hover:bg-orange-700 text-white'
                               : 'bg-amber-500/10 hover:bg-amber-500/25 text-amber-500 border border-amber-500/20'
                           }`}
                         >
-                          {selectedChat.bot_disabled ? (
+                          {selectedChat.botDisabled ? (
                             <>
                               <Play className="h-3.5 w-3.5 fill-current" />
                               <span>Reactivar Bot de IA</span>
@@ -1259,7 +1259,7 @@ export default function App() {
                     </div>
 
                     {/* Pre-quotation quick bar if qualified */}
-                    {selectedChat.monto_recibo && (
+                    {selectedChat.montoRecibo && (
                       <div className={`border-b p-4 flex flex-wrap gap-4 items-center justify-between text-xs transition-colors duration-200 ${
                         isDarkMode 
                           ? 'bg-gradient-to-r from-orange-950/10 to-slate-900/30 border-slate-800/80 text-slate-300' 
@@ -1268,20 +1268,20 @@ export default function App() {
                         <div className="flex items-center space-x-5">
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide">Gasto Promedio CFE</span>
-                            <span className={`font-bold text-sm ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>{selectedChat.monto_recibo}</span>
+                            <span className={`font-bold text-sm ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>{selectedChat.montoRecibo}</span>
                           </div>
                           <div className={`border-l h-8 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}></div>
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide">Sistema Propuesto</span>
                             <span className={`font-bold text-sm flex items-center ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>
                               <Layers className="h-3.5 w-3.5 text-orange-500 mr-1" />
-                              {selectedChat.sistema_estimado}
+                              {selectedChat.sistemaEstimado}
                             </span>
                           </div>
                           <div className={`border-l h-8 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}></div>
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide font-sans">Presupuesto Estimado</span>
-                            <span className="font-bold text-orange-500 text-sm">{selectedChat.costo_estimado}</span>
+                            <span className="font-bold text-orange-500 text-sm">{selectedChat.costoEstimado}</span>
                           </div>
                         </div>
 
@@ -1353,7 +1353,7 @@ export default function App() {
                     <form onSubmit={handleSendAgentMessage} className={`p-4 border-t backdrop-blur-md transition-colors duration-200 ${
                       isDarkMode ? 'bg-slate-900/40 border-slate-800/80' : 'bg-white border-slate-200'
                     }`}>
-                      {selectedChat.bot_disabled ? (
+                      {selectedChat.botDisabled ? (
                         <div className="mb-2 text-xs text-amber-500 bg-amber-500/5 border border-amber-500/20 px-3 py-1.5 rounded-lg flex items-center space-x-1.5">
                           <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
                           <span>El bot está **Pausado**. Tus mensajes se enviarán de forma manual y el bot no responderá automáticamente.</span>
@@ -1746,7 +1746,7 @@ export default function App() {
                         }`}>
                           <span className="flex items-center">
                             <Clock className="h-3.5 w-3.5 mr-1 text-slate-500" />
-                            {lead.created_at ? new Date(lead.created_at).toLocaleDateString() : 'Fecha Desconocida'}
+                            {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : 'Fecha Desconocida'}
                           </span>
                           <span className="tracking-wide">
                             {isPending ? '🔴 PENDIENTE REVISIÓN' : '🟢 CONTACTADO'}
@@ -1770,15 +1770,15 @@ export default function App() {
                           }`}>
                             <div className="flex justify-between items-center">
                               <span className="text-slate-500">Gasto CFE (Recibo):</span>
-                              <span className={`font-bold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{lead.monto_recibo}</span>
+                              <span className={`font-bold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{lead.montoRecibo}</span>
                             </div>
                             <div className="flex justify-between items-start">
                               <span className="text-slate-500">Sistema Estimado:</span>
-                              <span className={`font-semibold text-right transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{lead.sistema_estimado}</span>
+                              <span className={`font-semibold text-right transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{lead.sistemaEstimado}</span>
                             </div>
                             <div className="flex justify-between items-center">
                               <span className="text-slate-500">Inversión Aprox:</span>
-                              <span className="font-bold text-orange-500 text-sm">{lead.costo_estimado}</span>
+                              <span className="font-bold text-orange-500 text-sm">{lead.costoEstimado}</span>
                             </div>
                           </div>
 
@@ -1798,7 +1798,7 @@ export default function App() {
                             </div>
                             <textarea
                               rows={2}
-                              value={editingNotes[lead.id] !== undefined ? editingNotes[lead.id] : (lead.private_notes || '')}
+                              value={editingNotes[lead.id] !== undefined ? editingNotes[lead.id] : (lead.privateNotes || '')}
                               onChange={(e) => setEditingNotes(prev => ({ ...prev, [lead.id]: e.target.value }))}
                               placeholder="Escribe comentarios internos o seguimiento aquí..."
                               className={`w-full border rounded-xl p-2.5 text-xs resize-none font-light transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-orange-500/30 focus:border-orange-500/30 ${
@@ -1807,7 +1807,7 @@ export default function App() {
                                   : 'bg-slate-50 border-slate-250 text-slate-800 placeholder-slate-400'
                               }`}
                             />
-                            {(editingNotes[lead.id] !== undefined && editingNotes[lead.id] !== (lead.private_notes || '')) && (
+                            {(editingNotes[lead.id] !== undefined && editingNotes[lead.id] !== (lead.privateNotes || '')) && (
                               <div className="flex justify-end pt-0.5">
                                 <button
                                   onClick={() => handleSaveNotes(lead.id, editingNotes[lead.id])}

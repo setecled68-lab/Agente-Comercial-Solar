@@ -88,25 +88,14 @@ export default function App() {
           isDarkMode ? 'bg-slate-900 border-slate-800/80' : 'bg-white border-slate-200'
         }`}>
           <div className="flex items-center space-x-3">
-            {activeTab !== 'chats' ? (
-              <button
-                onClick={() => setActiveTab('chats')}
-                className={`md:hidden p-2 rounded-lg transition-colors ${
-                  isDarkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-100 text-slate-600'
-                }`}
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-            ) : (
-              <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                className={`md:hidden p-2 rounded-lg transition-colors ${
-                  isDarkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-100 text-slate-600'
-                }`}
-              >
-                <Menu className="h-5 w-5" />
-              </button>
-            )}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className={`md:hidden p-2 rounded-lg transition-colors ${
+                isDarkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-100 text-slate-600'
+              }`}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
             <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider ${
               isDarkMode ? 'bg-slate-950 text-slate-400 border border-slate-850' : 'bg-slate-100 text-slate-600 border border-slate-200'
             }`}>

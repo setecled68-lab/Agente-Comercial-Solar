@@ -135,23 +135,57 @@ var GroqProvider = class {
 };
 
 // server/infrastructure/engines/SolarQuoteEngine.ts
-var COST_PER_WP_MXN = 22;
-var PANEL_WP = 400;
-var CFE_RATE_MXN_KWH = 1.1;
-var SYSTEM_EFFICIENCY = 0.8;
-var PEAK_HOURS_DAY = 5.2;
+var PRICE_TABLE = [
+  {
+    minMonthly: 1250,
+    maxMonthly: 2e3,
+    panelsMid: 5,
+    systemKwp: 2,
+    costMid: 8e4,
+    roiYears: 3,
+    rangeLabel: "4 a 6 paneles"
+  },
+  {
+    minMonthly: 2e3,
+    maxMonthly: 3e3,
+    panelsMid: 7,
+    systemKwp: 2.8,
+    costMid: 105e3,
+    roiYears: 3.5,
+    rangeLabel: "6 a 8 paneles"
+  },
+  {
+    minMonthly: 3e3,
+    maxMonthly: 5e3,
+    panelsMid: 10,
+    systemKwp: 4,
+    costMid: 15e4,
+    roiYears: 3.7,
+    rangeLabel: "8 a 12 paneles"
+  },
+  {
+    minMonthly: 5e3,
+    maxMonthly: Infinity,
+    panelsMid: 14,
+    systemKwp: 5.6,
+    costMid: 22e4,
+    roiYears: 4,
+    rangeLabel: "12+ paneles (sistema comercial)"
+  }
+];
 var EXTRA_LOAD_FACTOR = 1.25;
 var SolarQuoteEngine = class {
   calculate(monthlyBillMxn, extraLoad = false) {
-    const monthlyKwh = monthlyBillMxn / CFE_RATE_MXN_KWH;
-    let requiredKwp = monthlyKwh / (PEAK_HOURS_DAY * 30 * SYSTEM_EFFICIENCY);
-    if (extraLoad) requiredKwp *= EXTRA_LOAD_FACTOR;
-    const panels = Math.ceil(requiredKwp * 1e3 / PANEL_WP);
-    const systemKwp = panels * PANEL_WP / 1e3;
-    const estimatedCost = Math.round(systemKwp * 1e3 * COST_PER_WP_MXN / 1e3) * 1e3;
-    const annualSavings = monthlyBillMxn * 12 * 0.9;
+    const effectiveBill = extraLoad ? monthlyBillMxn * EXTRA_LOAD_FACTOR : monthlyBillMxn;
+    const tier = PRICE_TABLE.find(
+      (t) => effectiveBill >= t.minMonthly && effectiveBill < t.maxMonthly
+    ) ?? PRICE_TABLE[PRICE_TABLE.length - 1];
+    const panels = tier.panelsMid;
+    const systemKwp = tier.systemKwp;
+    const estimatedCost = tier.costMid;
+    const roiYears = tier.roiYears;
+    const annualSavings = Math.round(monthlyBillMxn * 0.9 * 12);
     const monthlySavings = Math.round(annualSavings / 12);
-    const roiYears = parseFloat((estimatedCost / annualSavings).toFixed(1));
     return {
       monthlyBill: monthlyBillMxn,
       panels,
@@ -159,9 +193,9 @@ var SolarQuoteEngine = class {
       estimatedCost,
       roiYears,
       monthlySavings,
-      annualSavings: Math.round(annualSavings),
+      annualSavings,
       monthlySavingsFormatted: `$${monthlySavings.toLocaleString("es-MX")} MXN`,
-      annualSavingsFormatted: `$${Math.round(annualSavings).toLocaleString("es-MX")} MXN`,
+      annualSavingsFormatted: `$${annualSavings.toLocaleString("es-MX")} MXN`,
       costFormatted: `$${estimatedCost.toLocaleString("es-MX")} MXN`,
       systemDescription: `${panels} paneles solares (sistema de ${systemKwp.toFixed(1)} kWp)`,
       disclaimer: "Este es un presupuesto preliminar. El costo final depende de la visita t\xE9cnica sin costo en tu sitio (evaluaci\xF3n de inclinaci\xF3n del techo, sombras y trayectoria el\xE9ctrica)."

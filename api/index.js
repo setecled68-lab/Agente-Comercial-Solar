@@ -855,6 +855,75 @@ v2Router.post("/reset-demo", async (req, res) => {
   return res.json({ success: true });
 });
 
+// server/infrastructure/ai/LLMProvider.ts
+async function callGroq(systemInstruction, messages, temperature = 0.7) {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("GROQ_API_KEY no configurada en variables de entorno.");
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      temperature,
+      messages: [
+        { role: "system", content: systemInstruction },
+        ...messages
+      ]
+    })
+  });
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(`Groq error ${response.status}: ${err?.error?.message || response.statusText}`);
+  }
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content ?? "";
+}
+async function callGemini(systemInstruction, messages, temperature = 0.7) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY no configurada. Fallback no disponible.");
+  const contents = messages.map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }]
+  }));
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemInstruction }] },
+        contents,
+        generationConfig: { temperature }
+      })
+    }
+  );
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(`Gemini error ${response.status}: ${err?.error?.message || response.statusText}`);
+  }
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+}
+async function callLLM(systemInstruction, messages, temperature = 0.7) {
+  try {
+    const text = await callGroq(systemInstruction, messages, temperature);
+    console.log("[LLMProvider] \u2705 Respuesta generada con Groq (LLaMA 3.3 70B)");
+    return { text, provider: "groq" };
+  } catch (groqErr) {
+    console.warn(`[LLMProvider] \u26A0\uFE0F Groq fall\xF3: ${groqErr.message}. Intentando fallback a Gemini...`);
+  }
+  try {
+    const text = await callGemini(systemInstruction, messages, temperature);
+    console.log("[LLMProvider] \u2705 Respuesta generada con Gemini (fallback activado)");
+    return { text, provider: "gemini" };
+  } catch (geminiErr) {
+    console.error(`[LLMProvider] \u274C Ambos proveedores fallaron. Gemini: ${geminiErr.message}`);
+    throw new Error(
+      "El motor de IA no est\xE1 disponible en este momento. Por favor verifica las API Keys en las variables de entorno del servidor."
+    );
+  }
+}
+
 // api_src/index.ts
 var firebaseConfig = {
   projectId: "agente-comercial-solar",
@@ -966,31 +1035,8 @@ async function sendWhatsAppMessage2(phone, text) {
   }
 }
 async function callGroqAPI(systemInstruction, messages, temperature = 0.7) {
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    throw new Error("GROQ_API_KEY no configurada en las variables de entorno.");
-  }
-  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "llama-3.3-70b-versatile",
-      messages: [
-        { role: "system", content: systemInstruction },
-        ...messages
-      ],
-      temperature
-    })
-  });
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(`Groq API error: ${errorData?.error?.message || response.statusText}`);
-  }
-  const data = await response.json();
-  return data.choices?.[0]?.message?.content || "";
+  const result = await callLLM(systemInstruction, messages, temperature);
+  return result.text;
 }
 app.use(["/whatsapp-webhook", "/api/whatsapp-webhook"], (req, res, next) => {
   req.url = "/whatsapp-webhook";

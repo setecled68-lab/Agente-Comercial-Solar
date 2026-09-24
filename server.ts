@@ -261,38 +261,15 @@ async function sendWhatsAppMessage(phone: string, text: string): Promise<boolean
   }
 }
 
-// --- GROQ CLIENT HELPER ---
+// --- LLM PROVIDER (Groq primario + Gemini fallback) ---
+import { callLLM } from './server/infrastructure/ai/LLMProvider.js';
 async function callGroqAPI(
   systemInstruction: string,
   messages: { role: 'user' | 'assistant'; content: string }[],
   temperature: number = 0.7
 ): Promise<string> {
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    console.error('CRITICAL: GROQ_API_KEY environment variable is missing.');
-    throw new Error('GROQ_API_KEY is not configured in the environment variables.');
-  }
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
-      messages: [
-        { role: 'system', content: systemInstruction },
-        ...messages,
-      ],
-      temperature,
-    }),
-  });
-  if (!response.ok) {
-    const errorData = await response.json() as any;
-    throw new Error(`Groq API error: ${errorData?.error?.message || response.statusText}`);
-  }
-  const data = await response.json() as any;
-  return data.choices?.[0]?.message?.content || '';
+  const result = await callLLM(systemInstruction, messages, temperature);
+  return result.text;
 }
 
 // --- O3 ENERGY ASSISTANT PROMPT ---

@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <div className={`flex h-screen overflow-hidden font-sans transition-colors duration-200 ${
-      isDarkMode ? 'bg-slate-950 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/20 text-slate-100' : 'bg-slate-50 bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/50 text-slate-800'
+      isDarkMode ? 'bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 text-slate-100' : 'bg-gradient-to-br from-slate-50 via-white to-indigo-50/50 text-slate-800'
     }`}>
       
       <Sidebar 
@@ -83,7 +83,7 @@ export default function App() {
         
         {/* BARRA SUPERIOR (TOP BAR) */}
         <header className={`h-16 border-b flex items-center justify-between px-4 sm:px-6 z-10 shrink-0 transition-colors duration-200 ${
-          isDarkMode ? 'bg-slate-900/50 backdrop-blur-xl border-slate-700/50 shadow-sm' : 'bg-white/60 backdrop-blur-xl border-white/40 shadow-sm'
+          isDarkMode ? 'bg-slate-700/60 backdrop-blur-xl border-slate-600/50 shadow-sm' : 'bg-white/60 backdrop-blur-xl border-white/40 shadow-sm'
         }`}>
           <div className="flex items-center space-x-3">
             <button
@@ -154,7 +154,7 @@ export default function App() {
                 type="button"
                 onClick={() => setIsDarkMode(!isDarkMode)}
                 className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                  isDarkMode ? 'bg-amber-500' : 'bg-slate-300'
+                  isDarkMode ? 'bg-amber-400' : 'bg-slate-300'
                 }`}
               >
                 <span

@@ -40,10 +40,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <aside className={`fixed inset-y-0 left-0 z-50 w-80 flex flex-col border-r transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         } ${
-          isDarkMode ? 'bg-slate-900/60 backdrop-blur-2xl border-slate-700/50 shadow-xl text-slate-200' : 'bg-white/70 backdrop-blur-2xl border-slate-200 shadow-xl text-slate-700'
+          isDarkMode ? 'bg-slate-700/70 backdrop-blur-2xl border-slate-600/50 shadow-xl text-slate-200' : 'bg-white/70 backdrop-blur-2xl border-slate-200 shadow-xl text-slate-700'
       }`}>
         {/* Header / Logo */}
-        <div className={`p-6 border-b transition-colors duration-200 flex justify-between items-center ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}>
+        <div className={`p-6 border-b transition-colors duration-200 flex justify-between items-center ${isDarkMode ? 'border-slate-600/60' : 'border-slate-200'}`}>
           <div className="flex-shrink-0 bg-white/5 p-3 rounded-xl border border-white/5 shadow-sm w-full flex justify-center items-center relative">
             <img src="/images/logo-o3.png" alt="O3 Energy Logo" className="h-16 w-auto object-contain" />
             <button 
@@ -65,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 font-medium shadow-lg shadow-amber-950/30'
                   : 'bg-amber-50 text-amber-600 border-amber-500/30 font-semibold shadow-md shadow-amber-100'
                 : isDarkMode
-                ? 'text-slate-400 border-transparent hover:bg-slate-900/40 hover:text-slate-200'
+                ? 'text-slate-400 border-transparent hover:bg-slate-600/40 hover:text-slate-100'
                 : 'text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-800'
             }`}
           >
@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === 'chats' 
                   ? 'bg-amber-600 text-white' 
-                  : isDarkMode ? 'bg-slate-800 text-slate-400' : 'bg-slate-200 text-slate-600'
+                  : isDarkMode ? 'bg-slate-600 text-slate-300' : 'bg-slate-200 text-slate-600'
               }`}>
                 {chats.length}
               </span>
@@ -92,7 +92,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 font-medium shadow-lg shadow-amber-950/30'
                   : 'bg-amber-50 text-amber-600 border-amber-500/30 font-semibold shadow-md shadow-amber-100'
                 : isDarkMode
-                ? 'text-slate-400 border-transparent hover:bg-slate-900/40 hover:text-slate-200'
+                ? 'text-slate-400 border-transparent hover:bg-slate-600/40 hover:text-slate-100'
                 : 'text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-800'
             }`}
           >
@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 font-medium shadow-lg shadow-amber-950/30'
                   : 'bg-amber-50 text-amber-600 border-amber-500/30 font-semibold shadow-md shadow-amber-100'
                 : isDarkMode
-                ? 'text-slate-400 border-transparent hover:bg-slate-900/40 hover:text-slate-200'
+                ? 'text-slate-400 border-transparent hover:bg-slate-600/40 hover:text-slate-100'
                 : 'text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-800'
             }`}
           >
@@ -142,7 +142,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 font-medium shadow-lg shadow-amber-950/30'
                   : 'bg-amber-50 text-amber-600 border-amber-500/30 font-semibold shadow-md shadow-amber-100'
                 : isDarkMode
-                ? 'text-slate-400 border-transparent hover:bg-slate-900/40 hover:text-slate-200'
+                ? 'text-slate-400 border-transparent hover:bg-slate-600/40 hover:text-slate-100'
                 : 'text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-800'
             }`}
           >
@@ -152,7 +152,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <span className={`text-[9px] border px-2 py-0.5 rounded font-mono ${
               isDarkMode 
-                ? 'bg-slate-900 text-orange-400 border-amber-500/20' 
+                ? 'bg-slate-700 text-amber-400 border-amber-400/30' 
                 : 'bg-amber-50 text-amber-600 border-orange-200'
             }`}>
               PLAYGROUND
@@ -163,7 +163,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Footer / Status Area */}
         <div className={`p-4 border-t space-y-3 transition-colors duration-200 ${
-          isDarkMode ? 'bg-slate-950/30 border-slate-800/80' : 'bg-slate-50 border-slate-200'
+          isDarkMode ? 'bg-slate-700/30 border-slate-600/60' : 'bg-slate-50 border-slate-200'
         }`}>
           <div className="flex items-center justify-between text-xs">
             <span className="text-slate-550">Firestore DB:</span>
@@ -188,7 +188,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={handleResetDemo}
             className={`w-full flex items-center justify-center space-x-2 py-2 px-3 border rounded-xl transition-all duration-200 font-medium cursor-pointer text-xs ${
               isDarkMode 
-                ? 'border-slate-800/80 hover:bg-red-950/20 hover:border-red-900 text-slate-500 hover:text-red-400' 
+                ? 'border-slate-800/80 hover:bg-red-900/20 hover:border-red-700 text-slate-400 hover:text-red-400' 
                 : 'border-slate-200 hover:bg-red-50 hover:border-red-200 text-slate-500 hover:text-red-600'
             }`}
           >

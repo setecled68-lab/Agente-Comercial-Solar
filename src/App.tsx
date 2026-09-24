@@ -140,7 +140,7 @@ export default function App() {
                   </>
                 ) : (
                   <>
-                    <Bell className="h-3.5 w-3.5 text-orange-500 animate-pulse mr-0.5" />
+                    <Bell className="h-3.5 w-3.5 text-amber-400 animate-pulse mr-0.5" />
                     <span className="hidden sm:inline">Activar Alertas</span>
                   </>
                 )}
@@ -177,11 +177,11 @@ export default function App() {
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               className={`absolute top-6 left-1/2 transform -translate-x-1/2 z-50 border px-5 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-sm font-medium transition-colors duration-200 ${
                 isDarkMode 
-                  ? 'bg-slate-900 border-orange-500 text-orange-400' 
-                  : 'bg-white border-orange-500 text-orange-600'
+                  ? 'bg-slate-900 border-amber-400 text-amber-300' 
+                  : 'bg-white border-amber-400 text-amber-500'
               }`}
             >
-              <Sparkles className="h-4 w-4 animate-spin text-orange-500" />
+              <Sparkles className="h-4 w-4 animate-spin text-amber-400" />
               <span>{toastMessage}</span>
             </motion.div>
           )}
@@ -265,7 +265,7 @@ export default function App() {
                 <h2 className={`text-2xl font-bold flex items-center tracking-tight transition-colors duration-200 ${
                   isDarkMode ? 'text-white' : 'text-slate-900'
                 }`}>
-                  <Server className="h-6 w-6 mr-3 text-orange-500" />
+                  <Server className="h-6 w-6 mr-3 text-amber-400" />
                   Arquitectura y Despliegue
                 </h2>
                 <p className={`text-sm mt-1 font-light transition-colors duration-200 ${

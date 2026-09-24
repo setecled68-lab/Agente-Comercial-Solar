@@ -153,7 +153,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span className={`text-[9px] border px-2 py-0.5 rounded font-mono ${
               isDarkMode 
                 ? 'bg-slate-700 text-amber-400 border-amber-400/30' 
-                : 'bg-amber-50 text-amber-600 border-orange-200'
+                : 'bg-amber-50 text-amber-600 border-amber-200'
             }`}>
               PLAYGROUND
             </span>

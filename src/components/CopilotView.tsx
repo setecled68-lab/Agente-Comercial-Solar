@@ -57,7 +57,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
               <thead className="bg-slate-900">
                 <tr>
                   {tableHeaders.map((h, i) => (
-                    <th key={i} className="px-4 py-2.5 text-left font-bold text-orange-450 uppercase tracking-wider">{h}</th>
+                    <th key={i} className="px-4 py-2.5 text-left font-bold text-amber-350 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -83,7 +83,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
       const parts = line.split(/\*\*([\s\S]*?)\*\*/g);
       return parts.map((part, i) => {
         if (i % 2 === 1) {
-          return <strong key={i} className="font-semibold text-orange-550">{part}</strong>;
+          return <strong key={i} className="font-semibold text-amber-400">{part}</strong>;
         }
         return part;
       });
@@ -116,7 +116,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
       if (trimmed.startsWith('### ')) {
         flushList(index);
         parsedElements.push(
-          <h4 key={index} className="text-sm font-bold text-orange-500 mt-4 mb-1.5 tracking-tight">
+          <h4 key={index} className="text-sm font-bold text-amber-400 mt-4 mb-1.5 tracking-tight">
             {parseLineFormatting(trimmed.substring(4))}
           </h4>
         );
@@ -125,7 +125,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
       if (trimmed.startsWith('## ')) {
         flushList(index);
         parsedElements.push(
-          <h3 key={index} className="text-base font-bold text-orange-500 mt-5 mb-2 tracking-tight border-b border-slate-800 pb-1">
+          <h3 key={index} className="text-base font-bold text-amber-400 mt-5 mb-2 tracking-tight border-b border-slate-800 pb-1">
             {parseLineFormatting(trimmed.substring(3))}
           </h3>
         );
@@ -184,7 +184,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                     <h2 className={`text-xl font-bold flex items-center tracking-tight transition-colors duration-200 ${
                       isDarkMode ? 'text-white' : 'text-slate-900'
                     }`}>
-                      <Database className="h-5 w-5 mr-2.5 text-orange-500 animate-pulse" />
+                      <Database className="h-5 w-5 mr-2.5 text-amber-400 animate-pulse" />
                       Asistente de Base de Datos O3 Copilot
                     </h2>
                     <p className={`text-xs mt-1 transition-colors duration-250 ${
@@ -237,16 +237,16 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                       className={`max-w-[85%] md:max-w-[75%] rounded-2xl p-4 shadow-sm border transition-all duration-200 ${
                         msg.sender === 'user'
                           ? isDarkMode
-                            ? 'bg-orange-500/10 border-orange-500/30 text-slate-150'
-                            : 'bg-orange-50 border-orange-200 text-slate-850'
+                            ? 'bg-amber-400/10 border-amber-400/30 text-slate-150'
+                            : 'bg-amber-50 border-amber-200 text-slate-850'
                           : isDarkMode
                           ? 'bg-slate-900 border-slate-800/80 text-slate-150'
                           : 'bg-white border-slate-250 text-slate-800'
                       }`}
                     >
                       {/* Message header */}
-                      <div className="flex items-center space-x-1.5 mb-1.5 border-b border-orange-500/10 pb-1">
-                        <span className="text-[10px] font-bold text-orange-500 tracking-wider uppercase">
+                      <div className="flex items-center space-x-1.5 mb-1.5 border-b border-amber-400/10 pb-1">
+                        <span className="text-[10px] font-bold text-amber-400 tracking-wider uppercase">
                           {msg.sender === 'user' ? 'T├║ (Ventas)' : 'Copiloto O3'}
                         </span>
                         <span className={`text-[9px] ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
@@ -268,7 +268,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                       isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
                     }`}>
                       <div className="flex items-center space-x-2">
-                        <div className="bg-orange-500/10 p-1.5 rounded-lg text-orange-500 border border-orange-500/20">
+                        <div className="bg-amber-400/10 p-1.5 rounded-lg text-amber-400 border border-amber-400/20">
                           <Database className="h-3.5 w-3.5 animate-bounce" />
                         </div>
                         <span className="text-xs text-slate-400 animate-pulse font-medium">Consultando base de datos con IA...</span>
@@ -303,8 +303,8 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                         disabled={isCopilotTyping}
                         className={`text-xs py-1 px-2.5 rounded-lg border font-medium cursor-pointer transition-all duration-150 ${
                           isDarkMode
-                            ? 'bg-slate-950/40 hover:bg-slate-900 border-slate-850 text-slate-300 hover:text-orange-400 hover:border-orange-500/30'
-                            : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-orange-600 shadow-sm'
+                            ? 'bg-slate-950/40 hover:bg-slate-900 border-slate-850 text-slate-300 hover:text-amber-300 hover:border-amber-400/30'
+                            : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-amber-500 shadow-sm'
                         }`}
                       >
                         {s.label}
@@ -329,8 +329,8 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                     disabled={isCopilotTyping}
                     className={`flex-1 text-sm py-2.5 px-4 rounded-xl outline-none border transition-all duration-150 ${
                       isDarkMode
-                        ? 'bg-slate-950 border-slate-850 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500'
-                        : 'bg-white border-slate-200 text-slate-850 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 shadow-inner'
+                        ? 'bg-slate-950 border-slate-850 text-white focus:border-amber-400 focus:ring-1 focus:ring-amber-400'
+                        : 'bg-white border-slate-200 text-slate-850 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 shadow-inner'
                     }`}
                   />
                   <button
@@ -338,7 +338,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                     disabled={isCopilotTyping || !copilotInput.trim()}
                     className={`p-2.5 rounded-xl text-white font-bold transition-all flex items-center justify-center cursor-pointer ${
                       copilotInput.trim() && !isCopilotTyping
-                        ? 'bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/20'
+                        ? 'bg-amber-400 hover:bg-amber-500 shadow-md shadow-amber-400/20'
                         : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-750'
                     }`}
                   >

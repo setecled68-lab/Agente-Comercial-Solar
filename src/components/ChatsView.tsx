@@ -96,7 +96,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                   <h2 className={`text-sm font-bold uppercase tracking-wider flex items-center transition-colors duration-200 ${
                     isDarkMode ? 'text-slate-200' : 'text-slate-700'
                   }`}>
-                    <MessageSquare className="h-4 w-4 mr-2 text-orange-500" />
+                    <MessageSquare className="h-4 w-4 mr-2 text-amber-400" />
                     Monitor de Chats
                   </h2>
                   <div className="relative">
@@ -106,7 +106,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                       placeholder="Buscar por nombre o n├║mero..."
                       value={chatSearch}
                       onChange={(e) => setChatSearch(e.target.value)}
-                      className={`w-full pl-9 pr-4 py-2 border rounded-xl text-xs transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500/40 ${
+                      className={`w-full pl-9 pr-4 py-2 border rounded-xl text-xs transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-400/40 ${
                         isDarkMode 
                           ? 'bg-slate-950/60 border-slate-800 text-slate-200 placeholder:text-slate-500' 
                           : 'bg-slate-50 border-slate-250 text-slate-900 placeholder:text-slate-400'
@@ -122,7 +122,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                       <p className="text-xs">No se encontraron chats activos.</p>
                       <button 
                         onClick={() => setActiveTab('simulator')}
-                        className="text-orange-550 font-semibold text-xs hover:underline cursor-pointer"
+                        className="text-amber-400 font-semibold text-xs hover:underline cursor-pointer"
                       >
                         Iniciar simulaci├│n en Playground ÔåÆ
                       </button>
@@ -138,8 +138,8 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           className={`w-full p-4 text-left border-b transition-all duration-150 block cursor-pointer ${
                             selectedChatPhone === chat.phone
                               ? isDarkMode
-                                ? 'bg-slate-900/60 border-l-4 border-orange-500 border-b-slate-800'
-                                : 'bg-orange-50/60 border-l-4 border-orange-500 border-b-slate-100'
+                                ? 'bg-slate-900/60 border-l-4 border-amber-400 border-b-slate-800'
+                                : 'bg-amber-50/60 border-l-4 border-amber-400 border-b-slate-100'
                               : isDarkMode
                               ? 'hover:bg-slate-900/25 border-l-4 border-transparent border-b-slate-900/40'
                               : 'hover:bg-slate-50 border-l-4 border-transparent border-b-slate-100'
@@ -181,7 +181,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                             )}
 
                             {!isUnqualified && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-orange-500/10 text-orange-600 border border-orange-500/20">
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-400/10 text-amber-500 border border-amber-400/20">
                                 ­ƒöÑ Calificado ({chat.montoRecibo})
                               </span>
                             )}
@@ -213,8 +213,8 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                               isDarkMode ? 'text-slate-100' : 'text-slate-900'
                             }`}>{selectedChat.nombre || 'Cliente WhatsApp'}</h3>
                             {selectedChat.montoRecibo && (
-                              <span className="bg-orange-500/10 text-orange-600 border border-orange-500/20 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center">
-                                <Sparkles className="h-2.5 w-2.5 mr-0.5 text-orange-500 fill-current" /> Lead Calificado
+                              <span className="bg-amber-400/10 text-amber-500 border border-amber-400/20 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center">
+                                <Sparkles className="h-2.5 w-2.5 mr-0.5 text-amber-400 fill-current" /> Lead Calificado
                               </span>
                             )}
                           </div>
@@ -235,7 +235,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           onClick={() => handleToggleBot(selectedChat.phone, selectedChat.botDisabled)}
                           className={`flex items-center space-x-2 py-2 px-4 rounded-xl text-xs font-semibold shadow-sm transition-all duration-200 cursor-pointer ${
                             selectedChat.botDisabled
-                              ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                              ? 'bg-amber-500 hover:bg-amber-600 text-white'
                               : 'bg-amber-500/10 hover:bg-amber-500/25 text-amber-500 border border-amber-500/20'
                           }`}
                         >
@@ -258,8 +258,8 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                     {selectedChat.montoRecibo && (
                       <div className={`border-b p-4 flex flex-wrap gap-4 items-center justify-between text-xs transition-colors duration-200 ${
                         isDarkMode 
-                          ? 'bg-gradient-to-r from-orange-950/10 to-slate-900/30 border-slate-800/80 text-slate-300' 
-                          : 'bg-gradient-to-r from-orange-50/40 to-slate-50/20 border-slate-200 text-slate-800'
+                          ? 'bg-gradient-to-r from-amber-900/10 to-slate-900/30 border-slate-800/80 text-slate-300' 
+                          : 'bg-gradient-to-r from-amber-50/40 to-slate-50/20 border-slate-200 text-slate-800'
                       }`}>
                         <div className="flex items-center space-x-5">
                           <div>
@@ -270,14 +270,14 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide">Sistema Propuesto</span>
                             <span className={`font-bold text-sm flex items-center ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>
-                              <Layers className="h-3.5 w-3.5 text-orange-500 mr-1" />
+                              <Layers className="h-3.5 w-3.5 text-amber-400 mr-1" />
                               {selectedChat.sistemaEstimado}
                             </span>
                           </div>
                           <div className={`border-l h-8 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}></div>
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide font-sans">Presupuesto Estimado</span>
-                            <span className="font-bold text-orange-500 text-sm">{selectedChat.costoEstimado}</span>
+                            <span className="font-bold text-amber-400 text-sm">{selectedChat.costoEstimado}</span>
                           </div>
                         </div>
 
@@ -285,7 +285,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           href={`https://wa.me/${selectedChat.phone}`}
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-xl flex items-center space-x-2 transition shadow-sm text-xs cursor-pointer"
+                          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl flex items-center space-x-2 transition shadow-sm text-xs cursor-pointer"
                         >
                           <Phone className="h-3.5 w-3.5 fill-current" />
                           <span>Atender en WhatsApp</span>
@@ -310,18 +310,18 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                                 className={`max-w-[70%] rounded-2xl p-4 shadow-sm border transition-colors duration-200 ${
                                   isUser
                                     ? isDarkMode
-                                      ? 'bg-orange-500/10 text-orange-400 border-orange-500/20 rounded-tr-none'
-                                      : 'bg-orange-50 text-orange-850 border-orange-200 rounded-tr-none'
+                                      ? 'bg-amber-400/10 text-amber-300 border-amber-400/20 rounded-tr-none'
+                                      : 'bg-amber-50 text-amber-700 border-amber-200 rounded-tr-none'
                                     : isAgent
                                     ? isDarkMode
                                       ? 'bg-slate-800 text-slate-100 rounded-tr-none border-slate-700/50'
                                       : 'bg-white text-slate-800 rounded-tr-none border-slate-200 shadow-xs'
-                                    : 'bg-orange-600 text-white border-orange-500 rounded-tl-none'
+                                    : 'bg-amber-500 text-white border-amber-400 rounded-tl-none'
                                 }`}
                               >
                                 <div className={`flex items-center justify-between space-x-4 mb-1 border-b pb-1 ${
                                   isUser 
-                                    ? 'border-orange-500/10' 
+                                    ? 'border-amber-400/10' 
                                     : isDarkMode ? 'border-slate-800/40' : 'border-slate-100'
                                 }`}>
                                   <span className="text-[10px] font-bold tracking-wide uppercase opacity-75">
@@ -355,7 +355,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           <span>El bot est├í **Pausado**. Tus mensajes se enviar├ín de forma manual y el bot no responder├í autom├íticamente.</span>
                         </div>
                       ) : (
-                        <div className="mb-2 text-xs text-orange-500 bg-orange-500/5 border border-orange-500/20 px-3 py-1.5 rounded-lg flex items-center space-x-1.5">
+                        <div className="mb-2 text-xs text-amber-400 bg-amber-400/5 border border-amber-400/20 px-3 py-1.5 rounded-lg flex items-center space-x-1.5">
                           <Sparkles className="h-3.5 w-3.5 shrink-0 animate-pulse" />
                           <span>El bot de IA est├í **Activo**. Si env├¡as un mensaje manual, el bot se pausar├í autom├íticamente para evitar empalmarse.</span>
                         </div>
@@ -367,7 +367,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           value={agentMessageText}
                           onChange={(e) => setAgentMessageText(e.target.value)}
                           placeholder="Escribe una respuesta manual al cliente (Silenciar├í el Bot de IA)..."
-                          className={`flex-1 px-4 py-3 border rounded-xl text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500/40 ${
+                          className={`flex-1 px-4 py-3 border rounded-xl text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-400/40 ${
                             isDarkMode 
                               ? 'bg-slate-950 border-slate-800 text-slate-200 placeholder:text-slate-500' 
                               : 'bg-slate-50 border-slate-250 text-slate-900 placeholder:text-slate-400'
@@ -378,7 +378,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           className={`py-3 px-5 border rounded-xl font-bold transition flex items-center justify-center space-x-2 text-sm shadow-sm cursor-pointer ${
                             isDarkMode 
                               ? 'bg-slate-850 hover:bg-slate-800 text-white border-slate-800' 
-                              : 'bg-orange-600 hover:bg-orange-700 text-white border-orange-600'
+                              : 'bg-amber-500 hover:bg-amber-600 text-white border-amber-500'
                           }`}
                         >
                           <Send className="h-4 w-4" />
@@ -392,7 +392,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                     <div className={`p-5 rounded-3xl border shadow-md transition-colors duration-200 ${
                       isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
                     }`}>
-                      <MessageSquare className="h-16 w-16 stroke-1 text-orange-500" />
+                      <MessageSquare className="h-16 w-16 stroke-1 text-amber-400" />
                     </div>
                     <div>
                       <h4 className={`font-bold text-lg transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Historial de Conversaciones</h4>
@@ -402,7 +402,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                     </div>
                     <button 
                       onClick={() => setActiveTab('simulator')}
-                      className="mt-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs py-2.5 px-5 rounded-xl shadow-md transition cursor-pointer"
+                      className="mt-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs py-2.5 px-5 rounded-xl shadow-md transition cursor-pointer"
                     >
                       Abrir Simulador de WhatsApp
                     </button>

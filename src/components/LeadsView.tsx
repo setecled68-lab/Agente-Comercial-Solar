@@ -172,7 +172,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                   <h2 className={`text-2xl font-bold flex items-center tracking-tight transition-colors duration-200 ${
                     isDarkMode ? 'text-white' : 'text-slate-900'
                   }`}>
-                    <Users className="h-6 w-6 mr-3 text-orange-500" />
+                    <Users className="h-6 w-6 mr-3 text-amber-400" />
                     Leads Calificados y Pre-Cotizaciones
                   </h2>
                   <p className={`text-sm mt-1 font-light transition-colors duration-200 ${
@@ -187,7 +187,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
               {leads.length > 0 && (
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center space-x-2">
-                    <TrendingUp className="h-4 w-4 text-orange-500" />
+                    <TrendingUp className="h-4 w-4 text-amber-400" />
                     <h3 className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       Métricas de Ventas & Valor del Pipeline
                     </h3>
@@ -250,18 +250,18 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                       <div className="flex justify-between items-start">
                         <div className="space-y-1">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Valor Total del Pipeline</span>
-                          <h3 className={`text-2xl font-bold tracking-tight transition-colors duration-200 ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                          <h3 className={`text-2xl font-bold tracking-tight transition-colors duration-200 ${isDarkMode ? 'text-amber-300' : 'text-amber-500'}`}>
                             {formatCurrency(totalPipelineValue)}
                           </h3>
                         </div>
-                        <div className="bg-orange-500/10 p-2.5 rounded-xl border border-orange-500/20 text-orange-500">
+                        <div className="bg-amber-400/10 p-2.5 rounded-xl border border-amber-400/20 text-amber-400">
                           <DollarSign className="h-5 w-5" />
                         </div>
                       </div>
                       
                       <div className="mt-4 pt-3 border-t border-slate-500/10 flex items-center justify-between text-xs">
                         <span className="text-slate-500 text-[11px]">Conversión / contacto</span>
-                        <div className="flex items-center text-orange-500 font-semibold bg-orange-500/10 px-2 py-0.5 rounded-full text-[10px]">
+                        <div className="flex items-center text-amber-400 font-semibold bg-amber-400/10 px-2 py-0.5 rounded-full text-[10px]">
                           <Sparkles className="h-3 w-3 mr-1 animate-pulse" />
                           <span>{conversionRate}% del total</span>
                         </div>
@@ -280,7 +280,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                     <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Calificados</span>
                     <h3 className={`text-3xl font-bold tracking-tight transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{leads.length}</h3>
                   </div>
-                  <div className="bg-orange-500/10 p-3 rounded-xl border border-orange-500/20 text-orange-500">
+                  <div className="bg-amber-400/10 p-3 rounded-xl border border-amber-400/20 text-amber-400">
                     <Users className="h-6 w-6" />
                   </div>
                 </div>
@@ -323,7 +323,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                     <h3 className={`text-lg font-bold tracking-tight flex items-center transition-colors duration-200 ${
                       isDarkMode ? 'text-slate-100' : 'text-slate-900'
                     }`}>
-                      <Zap className="h-5 w-5 mr-2 text-orange-500" />
+                      <Zap className="h-5 w-5 mr-2 text-amber-400" />
                       Distribución por Sistema Solar Recomendado
                     </h3>
                     <p className={`text-xs font-light max-w-md transition-colors duration-200 ${
@@ -385,7 +385,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                         placeholder="Buscar por nombre, teléfono o tamaño de sistema..."
                         value={leadsSearch}
                         onChange={(e) => setLeadsSearch(e.target.value)}
-                        className={`w-full pl-10 pr-10 py-2.5 border rounded-xl text-xs transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500/40 ${
+                        className={`w-full pl-10 pr-10 py-2.5 border rounded-xl text-xs transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-400/40 ${
                           isDarkMode 
                             ? 'bg-slate-900/40 backdrop-blur-md border-slate-800 text-slate-200 placeholder:text-slate-500' 
                             : 'bg-white border-slate-250 text-slate-900 placeholder:text-slate-400'
@@ -404,7 +404,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                     </div>
                     {leadsSearch && (
                       <div className="text-xs font-light text-slate-500 shrink-0 self-center">
-                        Encontrados: <span className="font-semibold text-orange-500">{filteredLeads.length}</span> de {leads.length}
+                        Encontrados: <span className="font-semibold text-amber-400">{filteredLeads.length}</span> de {leads.length}
                       </div>
                     )}
                   </div>
@@ -428,7 +428,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                 <div className={`border rounded-3xl p-16 text-center max-w-lg mx-auto space-y-4 shadow-xl transition-all duration-200 ${
                   isDarkMode ? 'bg-slate-900/20 border-slate-800/80' : 'bg-white border-slate-200'
                 }`}>
-                  <div className="bg-orange-500/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto text-orange-500 border border-orange-500/20">
+                  <div className="bg-amber-400/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto text-amber-400 border border-amber-400/20">
                     <UserCheck className="h-8 w-8" />
                   </div>
                   <div>
@@ -439,7 +439,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                   </div>
                   <button
                     onClick={() => setActiveTab('simulator')}
-                    className="bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs py-2.5 px-5 rounded-xl transition cursor-pointer"
+                    className="bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs py-2.5 px-5 rounded-xl transition cursor-pointer"
                   >
                     Simular Primer Lead en vivo →
                   </button>
@@ -472,11 +472,11 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                       <motion.div
                         layout
                         key={lead.id}
-                        className={`backdrop-blur-md rounded-2xl border transition-all duration-300 overflow-hidden shadow-lg hover:shadow-orange-950/5 ${
+                        className={`backdrop-blur-md rounded-2xl border transition-all duration-300 overflow-hidden shadow-lg hover:shadow-amber-900/5 ${
                           isPending 
                             ? isDarkMode
-                              ? 'bg-slate-900/30 border-orange-500/40 ring-2 ring-orange-500/5' 
-                              : 'bg-white border-orange-400 ring-2 ring-orange-400/5'
+                              ? 'bg-slate-900/30 border-amber-400/40 ring-2 ring-amber-400/5' 
+                              : 'bg-white border-amber-300 ring-2 ring-amber-300/5'
                             : isDarkMode
                             ? 'bg-slate-900/30 border-slate-800/80 hover:border-slate-700/80'
                             : 'bg-white border-slate-200 hover:border-slate-350'
@@ -485,7 +485,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                         {/* Status bar */}
                         <div className={`px-4 py-2.5 text-xs font-semibold flex items-center justify-between transition-colors duration-200 ${
                           isPending 
-                            ? 'bg-orange-500/10 text-orange-600 border-b border-orange-500/20' 
+                            ? 'bg-amber-400/10 text-amber-500 border-b border-amber-400/20' 
                             : isDarkMode 
                             ? 'bg-slate-950/60 text-slate-400 border-b border-slate-850' 
                             : 'bg-slate-100 text-slate-600 border-b border-slate-200'
@@ -524,7 +524,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                             </div>
                             <div className="flex justify-between items-center">
                               <span className="text-slate-500">Inversión Aprox:</span>
-                              <span className="font-bold text-orange-500 text-sm">{lead.costoEstimado}</span>
+                              <span className="font-bold text-amber-400 text-sm">{lead.costoEstimado}</span>
                             </div>
                           </div>
 
@@ -536,7 +536,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                                 <span className={isDarkMode ? 'text-slate-400' : 'text-slate-600'}>Notas Privadas (Seguimiento)</span>
                               </span>
                               {savingNoteId === lead.id && (
-                                <span className="text-[10px] text-orange-500 animate-pulse flex items-center">
+                                <span className="text-[10px] text-amber-400 animate-pulse flex items-center">
                                   <RefreshCw className="h-3 w-3 animate-spin mr-1" />
                                   Guardando...
                                 </span>
@@ -547,7 +547,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                               value={editingNotes[lead.id] !== undefined ? editingNotes[lead.id] : (lead.privateNotes || '')}
                               onChange={(e) => setEditingNotes(prev => ({ ...prev, [lead.id]: e.target.value }))}
                               placeholder="Escribe comentarios internos o seguimiento aquí..."
-                              className={`w-full border rounded-xl p-2.5 text-xs resize-none font-light transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-orange-500/30 focus:border-orange-500/30 ${
+                              className={`w-full border rounded-xl p-2.5 text-xs resize-none font-light transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-amber-400/30 focus:border-amber-400/30 ${
                                 isDarkMode 
                                   ? 'bg-slate-950/60 border-slate-800 text-slate-300 placeholder-slate-700' 
                                   : 'bg-slate-50 border-slate-250 text-slate-800 placeholder-slate-400'
@@ -560,8 +560,8 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                                   disabled={savingNoteId === lead.id}
                                   className={`border text-[10px] font-medium py-1 px-2.5 rounded-lg transition-all cursor-pointer flex items-center space-x-1 ${
                                     isDarkMode
-                                      ? 'bg-orange-600/20 hover:bg-orange-600/30 border-orange-500/30 text-orange-400'
-                                      : 'bg-orange-100 hover:bg-orange-200 border-orange-200 text-orange-700'
+                                      ? 'bg-amber-500/20 hover:bg-amber-500/30 border-amber-400/30 text-amber-300'
+                                      : 'bg-amber-100 hover:bg-amber-200 border-amber-200 text-amber-600'
                                   }`}
                                 >
                                   <Check className="h-3 w-3" />
@@ -578,7 +578,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                               target="_blank"
                               referrerPolicy="no-referrer"
                               onClick={() => handleMarkContacted(lead.id)}
-                              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 transition shadow-sm text-xs cursor-pointer"
+                              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 transition shadow-sm text-xs cursor-pointer"
                             >
                               <Phone className="h-3.5 w-3.5 fill-current" />
                               <span>Atender Personalmente</span>

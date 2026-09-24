@@ -23,3 +23,12 @@ Todo desarrollo o refactorización debe tener como máxima prioridad la experien
 - **Empatía Técnica:** Está estrictamente prohibido diseñar flujos que requieran que el usuario final teclee comandos técnicos, IDs internos, o entienda la arquitectura del sistema. Toda interacción debe ser guiada a través de lenguaje natural o botones (UI).
 - **Cero Callejones sin Salida (Frictionless):** Si el usuario comete un error, cambia de opinión, o se encuentra en un estado final de un proceso (ej. un resumen de cotización), el sistema DEBE proveer siempre una salida interactiva inmediata (ej. un botón de "Recalcular" o "Volver") sin requerir que el usuario adivine cómo retroceder.
 - **Efecto WOW:** Las interfaces y los flujos deben sentirse vivos, profesionales y premium. El asistente no es solo un script que procesa datos; es una herramienta financiera y estratégica que debe guiar al usuario con claridad, confianza y cero fricción técnica.
+
+## REGLA INAMOVIBLE 5: SQA (Software Quality Assurance)
+Todo el cdigo desarrollado debe asegurar calidad a nivel de produccin. Implica la implementacin de pruebas exhaustivas (Unit, Integracin, E2E), revisin estricta de tipos (TypeScript), y prevencin proactiva de deuda tǸcnica. Ningn cdigo se asume 'listo' hasta que ha sido probado exitosamente en el entorno adecuado.
+
+## REGLA INAMOVIBLE 6: SSD (Seguridad por Diseo - ISO/IEC 27034-1)
+La seguridad no es una reflexin tarda, es el cimiento. Todo componente, especialmente aquellos que gestionan datos de prospectos o integran IA, debe aislar las variables de entorno, neutralizar la inyeccin de prompts (Prompt Injection), proteger endpoints sensibles, y jamǭs exponer API Keys (como Groq o Firebase) en el lado del cliente (Frontend).
+
+## REGLA INAMOVIBLE 7: MCP (Model Context Protocol)
+La integracin de mdulos de Inteligencia Artificial debe seguir estrictamente un protocolo estandarizado de contexto. Los prompts y datos inyectados a los LLMs (ej. LLaMA/Gemini) deben enviarse limpios, con instrucciones delimitadas y esquemas de salida predecibles (JSON estructurado). No se permite la concatenacin catica de variables de usuario directamente en las instrucciones del sistema.

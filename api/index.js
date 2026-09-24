@@ -21,7 +21,7 @@ var AppConfig = {
   },
   groq: {
     apiKey: process.env.GROQ_API_KEY || "",
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
     temperature: 0.7
   },
   smtp: {
@@ -863,7 +863,7 @@ async function callGroq(systemInstruction, messages, temperature = 0.7) {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       temperature,
       messages: [
         { role: "system", content: systemInstruction },

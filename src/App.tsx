@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <div className={`flex h-screen overflow-hidden font-sans transition-colors duration-200 ${
-      isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      isDarkMode ? 'bg-slate-950 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/20 text-slate-100' : 'bg-slate-50 bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/50 text-slate-800'
     }`}>
       
       <Sidebar 
@@ -79,13 +79,11 @@ export default function App() {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
-      <main className={`flex-1 flex flex-col overflow-hidden relative transition-colors duration-200 ${
-        isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
-      }`}>
+      <main className="flex-1 flex flex-col overflow-hidden relative transition-colors duration-200 bg-transparent">
         
         {/* BARRA SUPERIOR (TOP BAR) */}
         <header className={`h-16 border-b flex items-center justify-between px-4 sm:px-6 z-10 shrink-0 transition-colors duration-200 ${
-          isDarkMode ? 'bg-slate-900 border-slate-800/80' : 'bg-white border-slate-200'
+          isDarkMode ? 'bg-slate-900/50 backdrop-blur-xl border-slate-700/50 shadow-sm' : 'bg-white/60 backdrop-blur-xl border-white/40 shadow-sm'
         }`}>
           <div className="flex items-center space-x-3">
             <button
@@ -156,7 +154,7 @@ export default function App() {
                 type="button"
                 onClick={() => setIsDarkMode(!isDarkMode)}
                 className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                  isDarkMode ? 'bg-orange-500' : 'bg-slate-200'
+                  isDarkMode ? 'bg-amber-500' : 'bg-slate-300'
                 }`}
               >
                 <span

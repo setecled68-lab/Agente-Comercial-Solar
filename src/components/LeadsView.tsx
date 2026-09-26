@@ -166,7 +166,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
     <div className="p-8 h-full overflow-y-auto space-y-6">
               {/* Header */}
               <div className={`flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b pb-5 transition-colors duration-200 ${
-                isDarkMode ? 'border-slate-800/80' : 'border-slate-200'
+                isDarkMode ? 'border-white/10' : 'border-slate-200/60'
               }`}>
                 <div>
                   <h2 className={`text-2xl font-bold flex items-center tracking-tight transition-colors duration-200 ${
@@ -195,7 +195,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {/* Tarjeta 1: Cotizaciones Pendientes */}
                     <div className={`backdrop-blur-md border p-5 rounded-2xl flex flex-col justify-between shadow-lg transition-all duration-200 ${
-                      isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                      isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                     }`}>
                       <div className="flex justify-between items-start">
                         <div className="space-y-1">
@@ -204,7 +204,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                             {formatCurrency(totalPendingValue)}
                           </h3>
                         </div>
-                        <div className="bg-amber-500/10 p-2.5 rounded-xl border border-amber-500/20 text-amber-500">
+                        <div className="bg-amber-500/10 p-2.5 rounded-2xl border border-amber-400/25 text-amber-400">
                           <Clock className="h-5 w-5" />
                         </div>
                       </div>
@@ -220,7 +220,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
 
                     {/* Tarjeta 2: Leads Contactados */}
                     <div className={`backdrop-blur-md border p-5 rounded-2xl flex flex-col justify-between shadow-lg transition-all duration-200 ${
-                      isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                      isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                     }`}>
                       <div className="flex justify-between items-start">
                         <div className="space-y-1">
@@ -229,7 +229,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                             {formatCurrency(totalContactedValue)}
                           </h3>
                         </div>
-                        <div className="bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/20 text-emerald-500">
+                        <div className="bg-emerald-500/10 p-2.5 rounded-2xl border border-emerald-400/25 text-emerald-400">
                           <CheckCircle className="h-5 w-5" />
                         </div>
                       </div>
@@ -245,7 +245,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
 
                     {/* Tarjeta 3: Conversión y Pipeline Total */}
                     <div className={`backdrop-blur-md border p-5 rounded-2xl flex flex-col justify-between shadow-lg transition-all duration-200 md:col-span-2 lg:col-span-1 ${
-                      isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                      isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                     }`}>
                       <div className="flex justify-between items-start">
                         <div className="space-y-1">
@@ -274,7 +274,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
               {/* STATS BENTO ROW */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className={`backdrop-blur-md border p-5 rounded-2xl flex items-center justify-between shadow-lg transition-all duration-200 ${
-                  isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                  isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                 }`}>
                   <div className="space-y-1">
                     <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Calificados</span>
@@ -286,7 +286,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                 </div>
 
                 <div className={`backdrop-blur-md border p-5 rounded-2xl flex items-center justify-between shadow-lg transition-all duration-200 ${
-                  isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                  isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                 }`}>
                   <div className="space-y-1">
                     <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Pendientes de Contacto</span>
@@ -294,13 +294,13 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                       {leads.filter(l => l.status === 'pending_review').length}
                     </h3>
                   </div>
-                  <div className="bg-amber-500/10 p-3 rounded-xl border border-amber-500/20 text-amber-500">
+                  <div className="bg-amber-500/10 p-3 rounded-2xl border border-amber-400/25 text-amber-400">
                     <Clock className="h-6 w-6 animate-pulse" />
                   </div>
                 </div>
 
                 <div className={`backdrop-blur-md border p-5 rounded-2xl flex items-center justify-between shadow-lg transition-all duration-200 ${
-                  isDarkMode ? 'bg-slate-900/30 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-950'
+                  isDarkMode ? 'bg-white/5 border-white/10 text-white hover:bg-white/8' : 'bg-white/70 border-slate-200/60 text-slate-900 hover:bg-white/90'
                 }`}>
                   <div className="space-y-1">
                     <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Contactados</span>
@@ -308,7 +308,7 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
                       {leads.filter(l => l.status === 'contacted').length}
                     </h3>
                   </div>
-                  <div className="bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20 text-emerald-500">
+                  <div className="bg-emerald-500/10 p-3 rounded-2xl border border-emerald-400/25 text-emerald-400">
                     <CheckCircle className="h-6 w-6" />
                   </div>
                 </div>
@@ -606,3 +606,4 @@ export const LeadsView: React.FC<LeadsViewProps> = ({
             </div>
   );
 };
+

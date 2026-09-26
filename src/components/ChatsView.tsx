@@ -90,9 +90,9 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
     <div className="flex h-full overflow-hidden">
               {/* CHATS LIST COLUMN */}
               <div className={`${selectedChatPhone ? "hidden md:flex" : "flex"} w-full md:w-80 border-r flex-col transition-colors duration-200 ${
-                isDarkMode ? 'border-slate-800/80 bg-slate-900/10' : 'border-slate-200 bg-white'
+                isDarkMode ? 'border-white/10 bg-white/5 backdrop-blur-sm' : 'border-slate-200/60 bg-white/70'
               }`}>
-                <div className={`p-4 border-b space-y-3 transition-colors duration-200 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}>
+                <div className={`p-4 border-b space-y-3 transition-colors duration-200 ${isDarkMode ? 'border-white/10' : 'border-slate-200/60'}`}>
                   <h2 className={`text-sm font-bold uppercase tracking-wider flex items-center transition-colors duration-200 ${
                     isDarkMode ? 'text-slate-200' : 'text-slate-700'
                   }`}>
@@ -108,8 +108,8 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                       onChange={(e) => setChatSearch(e.target.value)}
                       className={`w-full pl-9 pr-4 py-2 border rounded-xl text-xs transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-400/40 ${
                         isDarkMode 
-                          ? 'bg-slate-950/60 border-slate-800 text-slate-200 placeholder:text-slate-500' 
-                          : 'bg-slate-50 border-slate-250 text-slate-900 placeholder:text-slate-400'
+                          ? 'bg-white/5 border-white/10 text-slate-200 placeholder:text-slate-500' 
+                          : 'bg-white/60 border-slate-300/60 text-slate-900 placeholder:text-slate-400'
                       }`}
                     />
                   </div>
@@ -138,11 +138,11 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           className={`w-full p-4 text-left border-b transition-all duration-150 block cursor-pointer ${
                             selectedChatPhone === chat.phone
                               ? isDarkMode
-                                ? 'bg-slate-900/60 border-l-4 border-amber-400 border-b-slate-800'
+                                ? 'bg-amber-400/10 border-l-4 border-amber-400 border-b-white/10 rounded-r-xl'
                                 : 'bg-amber-50/60 border-l-4 border-amber-400 border-b-slate-100'
                               : isDarkMode
-                              ? 'hover:bg-slate-900/25 border-l-4 border-transparent border-b-slate-900/40'
-                              : 'hover:bg-slate-50 border-l-4 border-transparent border-b-slate-100'
+                              ? 'hover:bg-white/5 border-l-4 border-transparent border-b-white/5 rounded-r-xl'
+                              : 'hover:bg-slate-50/80 border-l-4 border-transparent border-b-slate-100/60 rounded-r-xl'
                           }`}
                         >
                           <div className="flex justify-between items-start mb-1">
@@ -199,11 +199,11 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                   <>
                     {/* Chat Header */}
                     <div className={`p-4 border-b flex items-center justify-between shadow-sm z-10 backdrop-blur-md transition-colors duration-200 ${
-                      isDarkMode ? 'bg-slate-900/40 border-slate-800/80' : 'bg-white border-slate-200'
+                      isDarkMode ? 'bg-white/5 border-white/10 backdrop-blur-xl' : 'bg-white/80 border-slate-200/60 backdrop-blur-xl'
                     }`}>
                       <div className="flex items-center space-x-3">
                         <div className={`h-10 w-10 rounded-full border flex items-center justify-center font-semibold shadow-sm transition-colors duration-200 ${
-                          isDarkMode ? 'bg-slate-800 border-slate-700/80 text-slate-200' : 'bg-slate-100 border-slate-200 text-slate-700'
+                          isDarkMode ? 'bg-white/10 border-white/20 text-slate-200' : 'bg-slate-100 border-slate-200/60 text-slate-700'
                         }`}>
                           {selectedChat.nombre?.slice(0, 2).toUpperCase() || 'WA'}
                         </div>
@@ -258,15 +258,15 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                     {selectedChat.montoRecibo && (
                       <div className={`border-b p-4 flex flex-wrap gap-4 items-center justify-between text-xs transition-colors duration-200 ${
                         isDarkMode 
-                          ? 'bg-gradient-to-r from-amber-900/10 to-slate-900/30 border-slate-800/80 text-slate-300' 
-                          : 'bg-gradient-to-r from-amber-50/40 to-slate-50/20 border-slate-200 text-slate-800'
+                          ? 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10' 
+                          : 'bg-white/60 border-slate-200/60 text-slate-800 hover:bg-white/80'
                       }`}>
                         <div className="flex items-center space-x-5">
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide">Gasto Promedio CFE</span>
                             <span className={`font-bold text-sm ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>{selectedChat.montoRecibo}</span>
                           </div>
-                          <div className={`border-l h-8 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}></div>
+                          <div className={`border-l h-8 ${isDarkMode ? 'border-white/10' : 'border-slate-200/60'}`}></div>
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide">Sistema Propuesto</span>
                             <span className={`font-bold text-sm flex items-center ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>
@@ -274,7 +274,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                               {selectedChat.sistemaEstimado}
                             </span>
                           </div>
-                          <div className={`border-l h-8 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}></div>
+                          <div className={`border-l h-8 ${isDarkMode ? 'border-white/10' : 'border-slate-200/60'}`}></div>
                           <div>
                             <span className="text-slate-500 block font-semibold uppercase text-[9px] tracking-wide font-sans">Presupuesto Estimado</span>
                             <span className="font-bold text-amber-400 text-sm">{selectedChat.costoEstimado}</span>
@@ -285,7 +285,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           href={`https://wa.me/${selectedChat.phone}`}
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl flex items-center space-x-2 transition shadow-sm text-xs cursor-pointer"
+                          className="bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-white font-bold py-2.5 px-4 rounded-xl flex items-center space-x-2 shadow-md shadow-amber-500/20 transition text-xs cursor-pointer"
                         >
                           <Phone className="h-3.5 w-3.5 fill-current" />
                           <span>Atender en WhatsApp</span>
@@ -307,7 +307,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                               className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
                             >
                               <div
-                                className={`max-w-[70%] rounded-2xl p-4 shadow-sm border transition-colors duration-200 ${
+                                className={`max-w-[72%] rounded-2xl p-4 shadow-md border transition-colors duration-200 ${
                                   isUser
                                     ? isDarkMode
                                       ? 'bg-amber-400/10 text-amber-300 border-amber-400/20 rounded-tr-none'
@@ -347,7 +347,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
 
                     {/* Manual Reply Footer */}
                     <form onSubmit={handleSendAgentMessage} className={`p-4 border-t backdrop-blur-md transition-colors duration-200 ${
-                      isDarkMode ? 'bg-slate-900/40 border-slate-800/80' : 'bg-white border-slate-200'
+                      isDarkMode ? 'bg-white/5 border-white/10 backdrop-blur-xl' : 'bg-white/80 border-slate-200/60 backdrop-blur-xl'
                     }`}>
                       {selectedChat.botDisabled ? (
                         <div className="mb-2 text-xs text-amber-500 bg-amber-500/5 border border-amber-500/20 px-3 py-1.5 rounded-lg flex items-center space-x-1.5">
@@ -370,7 +370,7 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
                           className={`flex-1 px-4 py-3 border rounded-xl text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-400/40 ${
                             isDarkMode 
                               ? 'bg-slate-950 border-slate-800 text-slate-200 placeholder:text-slate-500' 
-                              : 'bg-slate-50 border-slate-250 text-slate-900 placeholder:text-slate-400'
+                              : 'bg-white/60 border-slate-300/60 text-slate-900 placeholder:text-slate-400'
                           }`}
                         />
                         <button
@@ -412,3 +412,4 @@ export const ChatsView: React.FC<ChatsViewProps> = ({
             </div>
   );
 };
+

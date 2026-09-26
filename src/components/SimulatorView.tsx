@@ -44,7 +44,7 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
     <div className="p-8 h-full overflow-y-auto space-y-6">
               {/* Header */}
               <div className={`border-b pb-5 transition-colors duration-200 ${
-                isDarkMode ? 'border-slate-800/80' : 'border-slate-200'
+                isDarkMode ? 'border-white/10' : 'border-slate-200/60'
               }`}>
                 <h2 className={`text-2xl font-bold flex items-center tracking-tight transition-colors duration-200 ${
                   isDarkMode ? 'text-white' : 'text-slate-900'
@@ -119,7 +119,7 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
 
                   {/* Simulator Trigger Input */}
                   <form onSubmit={handleSimulateWebhook} className={`p-4 border-t transition-colors duration-200 ${
-                    isDarkMode ? 'bg-slate-900/60 border-slate-800/80' : 'bg-white border-slate-200'
+                    isDarkMode ? 'bg-white/5 border-white/10 backdrop-blur-xl' : 'bg-white/80 border-slate-200/60 backdrop-blur-xl'
                   }`}>
                     <div className="flex flex-col space-y-2.5">
                       {/* Configuration fields */}
@@ -329,3 +329,4 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
             </div>
   );
 };
+

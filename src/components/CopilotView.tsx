@@ -177,7 +177,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
             >
               {/* Header Info */}
               <div className={`p-6 border-b shrink-0 transition-colors duration-200 ${
-                isDarkMode ? 'bg-slate-900/60 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'
+                isDarkMode ? 'bg-white/5 border-white/10 backdrop-blur-xl' : 'bg-white border-slate-200 shadow-sm'
               }`}>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
@@ -265,7 +265,7 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
                 {isCopilotTyping && (
                   <div className="flex justify-start">
                     <div className={`max-w-[85%] md:max-w-[75%] rounded-2xl p-4 shadow-sm border ${
-                      isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
+                      isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-white/80 border-slate-200/60 backdrop-blur-xl'
                     }`}>
                       <div className="flex items-center space-x-2">
                         <div className="bg-amber-400/10 p-1.5 rounded-lg text-amber-400 border border-amber-400/20">
@@ -349,3 +349,4 @@ export const CopilotView: React.FC<CopilotViewProps> = ({
             </motion.div>
   );
 };
+

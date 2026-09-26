@@ -62,9 +62,17 @@ export default function App() {
   } = useLeadsManager({ showToast });
 
   return (
-    <div className={`flex h-screen overflow-hidden font-sans transition-colors duration-200 ${
-      isDarkMode ? 'bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 text-slate-100' : 'bg-gradient-to-br from-slate-50 via-white to-indigo-50/50 text-slate-800'
+    <div className={`flex h-screen overflow-hidden font-sans transition-colors duration-200 relative ${
+      isDarkMode ? 'bg-slate-900 text-slate-100' : 'bg-gradient-to-br from-slate-50 via-white to-indigo-50/50 text-slate-800'
     }`}>
+      {/* ── Aurora Background Orbs ── */}
+      {isDarkMode && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
+          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-amber-500/8 blur-[120px] animate-pulse" style={{animationDuration:'8s'}} />
+          <div className="absolute top-1/2 -right-60 w-[500px] h-[500px] rounded-full bg-indigo-500/6 blur-[100px] animate-pulse" style={{animationDuration:'12s', animationDelay:'3s'}} />
+          <div className="absolute -bottom-40 left-1/3 w-[450px] h-[450px] rounded-full bg-amber-400/5 blur-[100px] animate-pulse" style={{animationDuration:'10s', animationDelay:'6s'}} />
+        </div>
+      )}
       
       <Sidebar 
         isDarkMode={isDarkMode}
@@ -79,7 +87,7 @@ export default function App() {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
-      <main className="flex-1 flex flex-col overflow-hidden relative transition-colors duration-200 bg-transparent">
+      <main className="flex-1 flex flex-col overflow-hidden relative transition-colors duration-200 bg-transparent z-10">
         
         {/* BARRA SUPERIOR (TOP BAR) */}
         <header className={`h-16 border-b flex items-center justify-between px-4 sm:px-6 z-10 shrink-0 transition-colors duration-200 ${

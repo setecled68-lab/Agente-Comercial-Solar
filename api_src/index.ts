@@ -246,23 +246,6 @@ app.use(['/whatsapp-webhook', '/api/whatsapp-webhook'], (req, res, next) => {
   v2Router(req, res, next);
 });
 
-// DIAGNOSTIC: Test Groq directly and return raw error (remove after debugging)
-app.get('/api/health/llm', async (_req, res) => {
-  const apiKey = process.env.GROQ_API_KEY;
-  const keyPreview = apiKey ? `${apiKey.substring(0,8)}...${apiKey.slice(-4)}` : 'NOT_SET';
-  try {
-    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'openai/gpt-oss-120b', messages: [{ role: 'user', content: 'di hola' }], temperature: 0.1 })
-    });
-    const data = await r.json() as any;
-    return res.json({ status: r.status, ok: r.ok, keyPreview, data });
-  } catch(e: any) {
-    return res.json({ status: 'fetch_error', keyPreview, error: e.message });
-  }
-});
-
 // GET chats (Updated for Strangler Pattern to read from V2 location)
 app.get('/api/chats', async (_req, res) => {
   try {
